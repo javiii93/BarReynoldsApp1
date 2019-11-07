@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent i = new Intent(this, CategoriasActivity.class);
-        b = new Button(view.getContext());
-        i.putExtra("categoria", b.getText());
+        Intent i = new Intent(this, ComandaActivity.class);
+
+       /* b = new Button(view.getContext());
+        i.putExtra("categoria", b.getText());*/
         startActivity(i);
     }
 }

@@ -2,7 +2,9 @@ package com.example.barreynoldsapp1;
 
 import android.media.Image;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Comparable<Producto>, Serializable {
     private String nombre;
     private float precio;
     private String descripcion, categoria;
@@ -55,5 +57,27 @@ public class Producto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + ' ' + precio + '€';
+                // ", descripcion='" + descripcion + '\'' +
+                // ", categoria='" + categoria + '\'' +
+                //  ", cantidad=" + cantidad +
+                // ", imagen=" + imagen +
+             //   ;
+    }
+
+    @Override
+    public int compareTo(Producto o) {
+        if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
+            return -1;
+        } else if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
+            return 1;
+        }
+        return 0;
+
+
     }
 }
