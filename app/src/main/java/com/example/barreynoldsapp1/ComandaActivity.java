@@ -21,15 +21,16 @@ public class ComandaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comanda);
         lista1 = findViewById(R.id.listView1);
         Producto p = new Producto();
-        p.setNombre("fgadfdsf");
-        Comanda c = new Comanda(p, 1);
+        Producto p1 = new Producto();
+        p.setNombre("adfdsk");
+        p1.setNombre("adfdsf");
+        Comanda c = new Comanda(p, 14);
+        Comanda c12 = new Comanda(p1, 1);
         arrayComanda.add(c);
-        // ArrayAdapter<Comanda> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayComanda);
-        //  lista1.setAdapter(adaptador);
+        arrayComanda.add(c12);
         MyCustomAdapter adaptador = new MyCustomAdapter(arrayComanda, this);
         lista1.setAdapter(adaptador);
-        //arrayComanda.add(c);
-
+        Collections.sort(arrayComanda);
     }
 
     public void recuperarObjeto() {

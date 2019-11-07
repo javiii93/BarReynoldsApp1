@@ -12,8 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Comanda> list = new ArrayList<Comanda>();
+    private ArrayList<Comanda> list = new ArrayList<>();
     private Context context;
+
     public MyCustomAdapter(ArrayList<Comanda> list, Context context) {
         this.list = list;
         this.context = context;
@@ -46,33 +47,30 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         }
 
         //Handle TextView and display string from your list
-        TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
+        TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
-        listItemText.setText( list.get(position).getProducto().toString());
+        listItemText.setText(list.get(position).getProducto().toString() + " Qty: " + list.get(position).getCantidad());
         //Handle buttons and add onClickListeners
-        Button deleteBtn = (Button)view.findViewById(R.id.delete_btn);
-        Button addBtn = (Button)view.findViewById(R.id.add_btn);
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
+        Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
+        Button addBtn = (Button) view.findViewById(R.id.add_btn);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Comanda cmd = (Comanda) getItem(pos);
-              list.get(pos).setCantidad(list.get(pos).getCantidad()-1);
-                //do something
-                /*
-                list.get().setCantidad(list.get().getCantidad()-1);
-                list.remove(position); //or some other task
-                notifyDataSetChanged();*/
+                if (list.get(pos).getCantidad() == 1) {
+                    list.remove(pos);
+                    //este hace un refresh de el adapter
+                    MyCustomAdapter.this.notifyDataSetChanged();
+                } else {
+                    list.get(pos).setCantidad((list.get(pos).getCantidad()) - 1);
+                }
+                MyCustomAdapter.this.notifyDataSetChanged();
             }
         });
-        addBtn.setOnClickListener(new View.OnClickListener(){
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               list.get(pos).setCantidad(list.get(pos).getCantidad()+1);
-                //do something
-
-                //notifyDataSetChanged();
-
-
+                list.get(pos).setCantidad((list.get(pos).getCantidad()) + 1);
+                MyCustomAdapter.this.notifyDataSetChanged();
             }
         });
 

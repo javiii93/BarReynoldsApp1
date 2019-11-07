@@ -1,10 +1,8 @@
 package com.example.barreynoldsapp1;
 
-import android.widget.Button;
-
 public class Comanda implements Comparable<Comanda> {
     private Producto producto;
-    private int cantidad = 0;
+    private int cantidad;
 
     public Comanda(Producto producto, int cantidad) {
         this.producto = producto;
@@ -29,7 +27,7 @@ public class Comanda implements Comparable<Comanda> {
 
     @Override
     public String toString() {
-        return producto.toString() +cantidad ;
+        return producto.toString() + cantidad;
     }
 
     @Override
