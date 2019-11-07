@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BarReynoldsApp1</string>
+    <string name="plats">plats</string>
+    <string name="tapes">tapes</string>
+    <string name="begudes">begudes</string>
+    <string name="entrepans">entrepans</string>
+
 </resources>
