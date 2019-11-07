@@ -55,5 +55,15 @@ public class Producto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+
+    }
+
+    @Override
+    public String toString() {
+        return nombre +
+                "\nPrecio: "+precio +"€"
+                //"Cantidad: " + cantidad +
+                //imagen +
+                ;
     }
 }

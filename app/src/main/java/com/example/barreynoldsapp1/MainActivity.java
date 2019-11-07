@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent i = new Intent(this, CategoriasActivity.class);
         b = new Button(view.getContext());
-        i.putExtra("categoria", b.getText());
+        i.putExtra("categoria",((Button)view).getText().toString());
         startActivity(i);
     }
 }
