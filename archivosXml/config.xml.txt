@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<config>
+
+	<numeroTaulas>x</numeroTaulas>
+
+	<ipServer>x.x.x.x</ipServer>
+
+	<pda id="1">
+
+		<pdaName>adrian</pdaName>
+
+	</pda>
+
+	<pda id="2">
+
+		<pdaName>sergio</pdaName>
+
+	</pda>
+
+	<pda id="3">
+
+		<pdaName>javier</pdaName>
+
+	</pda>
+
+</config>
