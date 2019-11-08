@@ -8,12 +8,27 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 public class ComandaActivity extends AppCompatActivity {
     private ArrayList<Comanda> arrayComanda = new ArrayList<>();
-    ListView lista1;
+   private ListView lista1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,9 @@ public class ComandaActivity extends AppCompatActivity {
         arrayComanda.add(c);
         Collections.sort(arrayComanda);
         añadirCantidadAlProducto();
+    }
+    public void guardarComanda(){
+
     }
 
     public void añadirCantidadAlProducto() {
