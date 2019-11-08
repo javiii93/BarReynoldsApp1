@@ -1,13 +1,15 @@
 package com.example.barreynoldsapp1;
 
 import android.media.Image;
+import android.net.Uri;
+import android.widget.ImageView;
 
 public class Producto {
     private String nombre;
     private float precio;
     private String descripcion, categoria;
     private int cantidad;
-    Image imagen;
+    private String imagen;
 
     public String getNombre() {
         return nombre;
@@ -33,11 +35,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Image getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Image imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -58,12 +60,24 @@ public class Producto {
 
     }
 
+    public Producto() {
+    }
+
+    public Producto(String nombre, float precio, String descripcion, String categoria, int cantidad, String imagen) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.cantidad = cantidad;
+        this.imagen = imagen;
+    }
+
     @Override
     public String toString() {
         return nombre +
                 "\nPrecio: "+precio +"€"
                 //"Cantidad: " + cantidad +
-                //imagen +
+                +"\n"+ R.drawable.aquarius
                 ;
     }
 }

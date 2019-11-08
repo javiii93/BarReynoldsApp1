@@ -44,13 +44,14 @@ public class CategoriasActivity extends AppCompatActivity {
     private String categoria;
     private ListView lista;
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
-    private ArrayAdapter<Producto> adaptador;
+    private MyCustomAdapter adaptador;
+    //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
     Resources resources;
     XmlResourceParser xmlParser;
     Document doc;
     Producto p1;
-
+    int images[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,8 @@ public class CategoriasActivity extends AppCompatActivity {
         lista = findViewById(R.id.listView);
 
         recuperarProductos();
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
+        //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
+        adaptador = new MyCustomAdapter(arrayProductos,this);
         lista.setAdapter(adaptador);
 
     }
@@ -93,6 +95,10 @@ public class CategoriasActivity extends AppCompatActivity {
                     p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
                     p1.setCategoria(categoria);
                     //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("preu").item(0).getTextContent()));
+                    Log.d("-----------",el.getElementsByTagName("imatge").item(0).getNodeName()); // Imatge
+
+                    //p1.setImagen(el.getChildNodes().item(0).getFirstChild().getAttributes().item(0).getTextContent());
+                    p1.setImagen(el.getFirstChild().getAttributes().item(0).getTextContent());
                     arrayProductos.add(p1);
 
                 }
@@ -105,9 +111,21 @@ public class CategoriasActivity extends AppCompatActivity {
 
         }
     }
-    public void queryXpath(String categoria) throws XPathExpressionException {
+    public String acortarRuta(String s){
+        String result;
+        for(int i=s.length()-1;i>0;i--) {
+
+            if (s.charAt(i) == '/') {
+                return result=s.substring(i,s.length()-1);
+            }
+        }
+        return null;
+    }
+    public void queryXpath(String nombre) throws XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
-        NodeList nodes = (NodeList) xPath.evaluate("//"+categoria+"/producte/imatge/image/@href", doc, XPathConstants.NODESET);
+        //NodeList nodes = (NodeList) xPath.evaluate("//"+categoria+"/producte/imatge/image/@href", doc, XPathConstants.NODESET);
+        NodeList nodes = (NodeList) xPath.evaluate("//image/@href", doc, XPathConstants.NODESET);
+
 
         for (int x = 0; x < nodes.getLength(); x++) {
             Node node = nodes.item(x);
@@ -118,6 +136,7 @@ public class CategoriasActivity extends AppCompatActivity {
                 Drawable d = Drawable.createFromStream(ims, null);
                 // set image to ImageView
                 //p1.setImagen();
+
                 System.out.println(node.getTextContent());
             }
             catch(IOException ex) {

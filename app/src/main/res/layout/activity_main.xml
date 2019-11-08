@@ -1,56 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".MainActivity">
+    android:background="@+id/fondo"
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="244dp"
+    <ImageButton
+        android:id="@+id/begudes"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginBottom="386dp"
+        android:background="@drawable/rectangle_5"
+        android:contentDescription="begudes"
         android:onClick="onClick"
-        android:text="@string/begudes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/bebidalol_1" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
+    <ImageButton
+        android:id="@+id/entrepans"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="238dp"
+        android:layout_marginLeft="238dp"
+        android:layout_marginBottom="383dp"
+        android:background="@drawable/rectangle_5"
+        android:contentDescription="entrepans"
         android:onClick="onClick"
-        android:text="@string/entrepans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/bocadillo2_1" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginBottom="260dp"
+    <ImageButton
+        android:id="@+id/plats"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginLeft="57dp"
+        android:layout_marginBottom="182dp"
+        android:background="@drawable/rectangle_5"
+        android:contentDescription="plats"
         android:onClick="onClick"
-        android:text="@string/plats"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:srcCompat="@drawable/comidapng_1" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="260dp"
+    <ImageButton
+        android:id="@+id/tapes"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="238dp"
+        android:layout_marginLeft="238dp"
+        android:layout_marginBottom="184dp"
+        android:background="@drawable/rectangle_5"
+        android:contentDescription="tapes"
         android:onClick="onClick"
-        android:text="@string/tapes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:srcCompat="@drawable/tapaspng_1" />
+
+
+    <!-- BEBIDALOL 1 -->
+
+
+    <!-- drawable/bebidalol_1.xml -->
+
+
+    <!-- Rectangle 8 -->
+
+
+    <!-- drawable/rectangle_8.xml -->
+
+
+    <!-- BOCADILLO2 1 -->
+
+
+    <!-- drawable/bocadillo2_.xml -->
+
+
+    <!-- Botón Tapas -->
+
+
+    <!-- drawable/bot_n_tapas.xml -->
+
+
+    <!-- TAPASPNG 1 -->
+
+
+    <!-- drawable/tapaspng_1.xml -->
+
+
+    <!-- Botón Cafe -->
+
+
+    <!-- drawable/bot_n_cafe.xml -->
+
+
+    <!-- CAFEPNG 1 -->
+
+
+    <!-- drawable/cafepng_1.xml -->
+
+
+    <!-- Rectangle 7 -->
+
+
+    <!-- drawable/rectangle_7.xml -->
+
+
+    <!-- COMIDAPNG 1 -->
+
+
+    <!-- drawable/comidapng_1.xml -->
+
+
+    <!-- Rectangle 10 -->
+
+
+    <!-- drawable/rectangle_1.xml -->
+
+
+    <!-- POSTREPNG 1 -->
+
+
+    <!-- drawable/postrepng_1.xml -->
+
+
+</RelativeLayout>
