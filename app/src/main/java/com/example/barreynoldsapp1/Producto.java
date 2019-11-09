@@ -74,7 +74,7 @@ public class Producto {
 
     public String toString() {
         return nombre +
-                "  " + precio + "€"
+                "\n" + precio + "€"
                 //"Cantidad: " + cantidad +
                 ;
     }

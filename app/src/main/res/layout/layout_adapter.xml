@@ -6,23 +6,24 @@
 
     <TextView
         android:id="@+id/list_item_string"
-        android:layout_width="305dp"
-        android:layout_height="44dp"
+        android:layout_width="330dp"
+        android:layout_height="85dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="8dp"
+        android:textColor="#C8000000"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="46dp"
-        android:layout_height="48dp"
+        android:layout_width="74dp"
+        android:layout_height="85dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="51dp"
-        android:layout_marginRight="51dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         app:srcCompat="@drawable/aquarius" />
 
 </RelativeLayout>
