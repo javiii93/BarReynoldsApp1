@@ -2,50 +2,27 @@ package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 public class CategoriasActivity extends AppCompatActivity {
     private String categoria;
     private ListView lista;
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
-    private MyCustomAdapter adaptador;
+    private MyCustomAdapter2 adaptador;
     //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
     Resources resources;
@@ -66,7 +43,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
         recuperarProductos();
         //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
-        adaptador = new MyCustomAdapter(arrayProductos,this);
+        adaptador = new MyCustomAdapter2(arrayProductos,this);
         lista.setAdapter(adaptador);
 
     }

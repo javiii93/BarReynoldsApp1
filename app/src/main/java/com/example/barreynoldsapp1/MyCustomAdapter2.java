@@ -5,18 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
+public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
     private ArrayList<Producto> list = new ArrayList<>();
     private Context context;
     private ImageView img;
-    public MyCustomAdapter(ArrayList<Producto> list, Context context) {
+    public MyCustomAdapter2(ArrayList<Producto> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -44,7 +43,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.layout_adapter, null);
+            view = inflater.inflate(R.layout.layout_adapter_2, null);
         }
 
         img = view.findViewById(R.id.imageView2);
