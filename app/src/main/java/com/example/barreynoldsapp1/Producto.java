@@ -9,7 +9,7 @@ public class Producto {
     private float precio;
     private String descripcion, categoria;
     private int cantidad;
-    private String imagen;
+    private int imagen;
 
     public String getNombre() {
         return nombre;
@@ -35,11 +35,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public String getImagen() {
+    public int getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(int imagen) {
         this.imagen = imagen;
     }
 
@@ -63,7 +63,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String nombre, float precio, String descripcion, String categoria, int cantidad, String imagen) {
+    public Producto(String nombre, float precio, String descripcion, String categoria, int cantidad, int imagen) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
@@ -72,12 +72,10 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    @Override
     public String toString() {
         return nombre +
-                "\nPrecio: "+precio +"€"
+                "  " + precio + "€"
                 //"Cantidad: " + cantidad +
-                +"\n"+ R.drawable.aquarius
                 ;
     }
 }

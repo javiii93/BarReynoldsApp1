@@ -46,18 +46,30 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.layout_adapter, null);
         }
+
         img = view.findViewById(R.id.imageView2);
-        img.setImageResource(R.drawable.aquarius);
+        img.setImageResource(list.get(position).getImagen());
         //Handle TextView and display string from your list
         TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
         listItemText.setText(list.get(position).toString());
         //list.get(position).setImagen(img);
         //Handle buttons and add onClickListeners
-        Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
 
 
         return view;
 
+    }
+    public String acortarRuta(String s){
+        String result;
+        for(int i=s.length()-1;i>0;i--) {
+
+            if (s.charAt(i) == '/') {
+                result=s.substring(i+1);
+                System.out.println(result);
+                return result;
+            }
+        }
+        return null;
     }
 }

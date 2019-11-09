@@ -2,6 +2,7 @@ package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -51,7 +52,6 @@ public class CategoriasActivity extends AppCompatActivity {
     XmlResourceParser xmlParser;
     Document doc;
     Producto p1;
-    int images[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,16 +95,18 @@ public class CategoriasActivity extends AppCompatActivity {
                     p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
                     p1.setCategoria(categoria);
                     //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("preu").item(0).getTextContent()));
-                    Log.d("-----------",el.getElementsByTagName("imatge").item(0).getNodeName()); // Imatge
+                    String ruta=acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
+                    int drawableResourceId=getResources().getIdentifier(ruta, "drawable", getPackageName());
+                    //drawableResourceId=R.drawable.pernil_serra;
 
-                    //p1.setImagen(el.getChildNodes().item(0).getFirstChild().getAttributes().item(0).getTextContent());
-                    p1.setImagen(el.getFirstChild().getAttributes().item(0).getTextContent());
+                    System.out.println(drawableResourceId);
+                    p1.setImagen(drawableResourceId);
                     arrayProductos.add(p1);
 
                 }
             }
             // Rellenar imagenes
-            queryXpath(categoria);
+            //queryXpath(categoria);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,32 +118,11 @@ public class CategoriasActivity extends AppCompatActivity {
         for(int i=s.length()-1;i>0;i--) {
 
             if (s.charAt(i) == '/') {
-                return result=s.substring(i,s.length()-1);
+                result=s.substring(i+1,s.length()-4);
+                System.out.println(result);
+                return result;
             }
         }
         return null;
-    }
-    public void queryXpath(String nombre) throws XPathExpressionException {
-        XPath xPath = XPathFactory.newInstance().newXPath();
-        //NodeList nodes = (NodeList) xPath.evaluate("//"+categoria+"/producte/imatge/image/@href", doc, XPathConstants.NODESET);
-        NodeList nodes = (NodeList) xPath.evaluate("//image/@href", doc, XPathConstants.NODESET);
-
-
-        for (int x = 0; x < nodes.getLength(); x++) {
-            Node node = nodes.item(x);
-            try {
-                // get input stream
-                InputStream ims = getAssets().open(node.getTextContent());
-                // load image as Drawable
-                Drawable d = Drawable.createFromStream(ims, null);
-                // set image to ImageView
-                //p1.setImagen();
-
-                System.out.println(node.getTextContent());
-            }
-            catch(IOException ex) {
-                return;
-            }
-        }
     }
 }
