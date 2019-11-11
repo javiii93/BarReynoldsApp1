@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import org.w3c.dom.Document;
@@ -26,10 +27,12 @@ public class CategoriasActivity extends AppCompatActivity {
     private MyCustomAdapter2 adaptador;
     //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
+    Intent i;
     Resources resources;
     XmlResourceParser xmlParser;
     Document doc;
     Producto p1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,20 +41,22 @@ public class CategoriasActivity extends AppCompatActivity {
         categoria = getIntent().getStringExtra("categoria");
         resources = getResources();
 
+        i = new Intent(this, ComandaActivity.class);
 
         // Instanciamos objetos Clase R
         lista = findViewById(R.id.listView);
 
         recuperarProductos();
         //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
-        adaptador = new MyCustomAdapter2(arrayProductos,this);
+        adaptador = new MyCustomAdapter2(arrayProductos, this);
         lista.setAdapter(adaptador);
 
     }
+
     public void pasarProductosAComanda(Producto p) {
-        Intent i = new Intent(this, ComandaActivity.class);
         i.putExtra("sampleObject", p);
     }
+
     public void recuperarProductos() {
         try {
             System.out.println(categoria);
@@ -76,8 +81,8 @@ public class CategoriasActivity extends AppCompatActivity {
                     p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
                     p1.setCategoria(categoria);
                     //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("preu").item(0).getTextContent()));
-                    String ruta=acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
-                    int drawableResourceId=getResources().getIdentifier(ruta, "drawable", getPackageName());
+                    String ruta = acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
+                    int drawableResourceId = getResources().getIdentifier(ruta, "drawable", getPackageName());
                     //drawableResourceId=R.drawable.pernil_serra;
 
                     System.out.println(drawableResourceId);
@@ -86,6 +91,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
                 }
             }
+
             // Rellenar imagenes
             //queryXpath(categoria);
 
@@ -94,12 +100,17 @@ public class CategoriasActivity extends AppCompatActivity {
 
         }
     }
-    public String acortarRuta(String s){
+
+    public void onClick(View view) {
+        startActivity(i);
+    }
+
+    public String acortarRuta(String s) {
         String result;
-        for(int i=s.length()-1;i>0;i--) {
+        for (int i = s.length() - 1; i > 0; i--) {
 
             if (s.charAt(i) == '/') {
-                result=s.substring(i+1,s.length()-4);
+                result = s.substring(i + 1, s.length() - 4);
                 System.out.println(result);
                 return result;
             }
