@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -49,7 +50,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         //Handle TextView and display string from your list
         TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
-        listItemText.setText(list.get(position).getProducto().toString() + " Qty: " + list.get(position).getCantidad());
+        listItemText.setText(list.get(position).getProducto().toString() );
+
+        TextView textView= (TextView) view.findViewById(R.id.textView2);
+        textView.setText(String.valueOf(list.get(position).getCantidad()));
+
+        ImageView imageView= (ImageView) view.findViewById(R.id.imageView3);
+        //imageView.setImageResource(list.get(position).getImagen();
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
         Button addBtn = (Button) view.findViewById(R.id.add_btn);

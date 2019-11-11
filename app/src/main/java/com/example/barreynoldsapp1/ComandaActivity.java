@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.w3c.dom.Attr;
@@ -47,7 +48,8 @@ public class ComandaActivity extends AppCompatActivity {
         Comanda c;
         ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");
         for(int i=0;i<p.size();i++){
-            c = new Comanda(p.get(i), 1);
+
+            c = new Comanda(p.get(i), 1,p.get(i).getImagen());
             arrayComanda.add(c);
             Collections.sort(arrayComanda);
             añadirCantidadAlProducto();
@@ -60,14 +62,19 @@ public class ComandaActivity extends AppCompatActivity {
     public void añadirCantidadAlProducto() {
         if (arrayComanda.size() > 1) {
             for (int i = 0; i <= arrayComanda.size(); i++) {
-                if (arrayComanda.get(i).getProducto().getNombre().equalsIgnoreCase(arrayComanda.get(i + 1).getProducto().getNombre())) {
-                    if (arrayComanda.get(i).getCantidad() > arrayComanda.get(i + 1).getCantidad()) {
-                        arrayComanda.get(i).setCantidad(arrayComanda.get(i).getCantidad() + 1);
-                        arrayComanda.remove(i + 1);
-                    } else {
-                        arrayComanda.get(i + 1).setCantidad(arrayComanda.get(i + 1).getCantidad() + 1);
-                        arrayComanda.remove(i);
+                try {
+                    arrayComanda.get(i).setCantidad(arrayComanda.get(i).getCantidad());
+                    if (arrayComanda.get(i).getProducto().getNombre().equalsIgnoreCase(arrayComanda.get(i + 1).getProducto().getNombre())) {
+                        if (arrayComanda.get(i).getCantidad() > arrayComanda.get(i + 1).getCantidad()) {
+                            arrayComanda.get(i).setCantidad(arrayComanda.get(i).getCantidad() + 1);
+                            arrayComanda.remove(i + 1);
+                        } else {
+                            arrayComanda.get(i + 1).setCantidad(arrayComanda.get(i + 1).getCantidad() + 1);
+                            arrayComanda.remove(i);
+                        }
                     }
+                }catch (Exception e){
+
                 }
             }
         }

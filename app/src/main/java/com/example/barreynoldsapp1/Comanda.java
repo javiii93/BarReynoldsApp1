@@ -1,12 +1,25 @@
 package com.example.barreynoldsapp1;
 
+import android.widget.ImageView;
+
 public class Comanda implements Comparable<Comanda> {
     private Producto producto;
     private int cantidad;
+    private int imagen;
 
-    public Comanda(Producto producto, int cantidad) {
+    public Comanda(Producto producto, int cantidad,int imagen) {
         this.producto = producto;
         this.cantidad = cantidad;
+        this.imagen= imagen;
+
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 
     public Producto getProducto() {
