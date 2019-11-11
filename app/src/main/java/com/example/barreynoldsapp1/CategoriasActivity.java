@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,9 +28,8 @@ public class CategoriasActivity extends AppCompatActivity {
     private ListView lista;
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
     private MyCustomAdapter2 adaptador;
-    //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
-    Intent i;
+    public Intent i;
     Resources resources;
     XmlResourceParser xmlParser;
     Document doc;
@@ -41,7 +43,7 @@ public class CategoriasActivity extends AppCompatActivity {
         categoria = getIntent().getStringExtra("categoria");
         resources = getResources();
 
-        i = new Intent(this, ComandaActivity.class);
+        i= new Intent(this, ComandaActivity.class);
 
         // Instanciamos objetos Clase R
         lista = findViewById(R.id.listView);
@@ -83,7 +85,6 @@ public class CategoriasActivity extends AppCompatActivity {
                     //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("preu").item(0).getTextContent()));
                     String ruta = acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
                     int drawableResourceId = getResources().getIdentifier(ruta, "drawable", getPackageName());
-                    //drawableResourceId=R.drawable.pernil_serra;
 
                     System.out.println(drawableResourceId);
                     p1.setImagen(drawableResourceId);
@@ -91,6 +92,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
                 }
             }
+
 
             // Rellenar imagenes
             //queryXpath(categoria);
