@@ -4,7 +4,9 @@ import android.media.Image;
 import android.net.Uri;
 import android.widget.ImageView;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Comparable<Producto>, Serializable {
     private String nombre;
     private float precio;
     private String descripcion, categoria;
@@ -77,5 +79,19 @@ public class Producto {
                 "\n" + precio + "€"
                 //"Cantidad: " + cantidad +
                 ;
+    }
+
+
+
+    @Override
+    public int compareTo(Producto o) {
+        if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
+            return -1;
+        } else if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
+            return 1;
+        }
+        return 0;
+
+
     }
 }

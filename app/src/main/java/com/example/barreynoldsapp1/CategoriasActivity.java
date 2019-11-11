@@ -2,6 +2,7 @@ package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -47,7 +48,10 @@ public class CategoriasActivity extends AppCompatActivity {
         lista.setAdapter(adaptador);
 
     }
-
+    public void pasarProductosAComanda(Producto p) {
+        Intent i = new Intent(this, ComandaActivity.class);
+        i.putExtra("sampleObject", p);
+    }
     public void recuperarProductos() {
         try {
             System.out.println(categoria);

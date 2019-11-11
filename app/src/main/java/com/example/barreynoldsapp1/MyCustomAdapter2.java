@@ -1,6 +1,7 @@
 package com.example.barreynoldsapp1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,20 +56,19 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
         //list.get(position).setImagen(img);
         //Handle buttons and add onClickListeners
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CategoriasActivity ca = new CategoriasActivity();
+                ca.pasarProductosAComanda(list.get(pos));
+
+            }
+        });
+
+
 
         return view;
 
     }
-    public String acortarRuta(String s){
-        String result;
-        for(int i=s.length()-1;i>0;i--) {
 
-            if (s.charAt(i) == '/') {
-                result=s.substring(i+1);
-                System.out.println(result);
-                return result;
-            }
-        }
-        return null;
-    }
 }
