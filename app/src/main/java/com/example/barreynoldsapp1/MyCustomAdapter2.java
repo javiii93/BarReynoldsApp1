@@ -16,6 +16,7 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
     private ArrayList<Producto> list = new ArrayList<>();
     private Context context;
     private ImageView img;
+   private CategoriasActivity ca;
     public MyCustomAdapter2(ArrayList<Producto> list, Context context) {
         this.list = list;
         this.context = context;
@@ -56,14 +57,15 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
         //list.get(position).setImagen(img);
         //Handle buttons and add onClickListeners
 
-        view.setOnClickListener(new View.OnClickListener() {
+        /*view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CategoriasActivity ca = new CategoriasActivity();
-                ca.pasarProductosAComanda(list.get(pos));
+             //  CategoriasActivity ca =new CategoriasActivity();
+                // ca = new CategoriasActivity();
+               // ca.pasarProductosAComanda(list.get(pos));
 
             }
-        });
+        });*/
 
 
 
