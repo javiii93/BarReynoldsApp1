@@ -2,7 +2,6 @@ package com.example.barreynoldsapp1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,12 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
     private ArrayList<Producto> list = new ArrayList<>();
     private Context context;
     private ImageView img;
+   private CategoriasActivity ca;
     public MyCustomAdapter2(ArrayList<Producto> list, Context context) {
         this.list = list;
         this.context = context;
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -56,9 +57,20 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
         //list.get(position).setImagen(img);
         //Handle buttons and add onClickListeners
 
+        /*view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             //  CategoriasActivity ca =new CategoriasActivity();
+                // ca = new CategoriasActivity();
+               // ca.pasarProductosAComanda(list.get(pos));
+
+            }
+        });*/
+
+
+
         return view;
 
     }
-
 
 }

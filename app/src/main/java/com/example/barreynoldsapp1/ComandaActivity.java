@@ -28,7 +28,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 public class ComandaActivity extends AppCompatActivity {
-    Producto p;
     private  ArrayList<Comanda> arrayComanda = new ArrayList<>();
    private ListView lista1;
 
@@ -37,8 +36,6 @@ public class ComandaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
         lista1 = findViewById(R.id.listView1);
-        p = (Producto) getIntent().getSerializableExtra("sampleObject");
-
         recuperarObjeto();
 
         MyCustomAdapter adaptador = new MyCustomAdapter(arrayComanda, this);
@@ -47,11 +44,14 @@ public class ComandaActivity extends AppCompatActivity {
     }
 
     public void recuperarObjeto() {
-        //Producto p = (Producto) getIntent().getSerializableExtra("sampleObject");
-        Comanda c = new Comanda(p, 1);
-        arrayComanda.add(c);
-        Collections.sort(arrayComanda);
-        añadirCantidadAlProducto();
+        Comanda c;
+        ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");
+        for(int i=0;i<p.size();i++){
+            c = new Comanda(p.get(i), 1);
+            arrayComanda.add(c);
+            Collections.sort(arrayComanda);
+            añadirCantidadAlProducto();
+        }
     }
     public void guardarComanda(){
 
@@ -72,5 +72,6 @@ public class ComandaActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }
