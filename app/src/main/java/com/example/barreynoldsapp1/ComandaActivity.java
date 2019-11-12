@@ -33,7 +33,7 @@ public class ComandaActivity extends AppCompatActivity {
     private  ArrayList<Comanda> arrayComanda = new ArrayList<>();
    private ListView lista1;
     Button deleteBtn;
-
+    String g;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
