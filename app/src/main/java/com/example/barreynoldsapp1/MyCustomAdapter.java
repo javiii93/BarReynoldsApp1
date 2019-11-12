@@ -56,6 +56,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         textView.setText(String.valueOf(list.get(position).getCantidad()));
 
         ImageView imageView= (ImageView) view.findViewById(R.id.imageView3);
+        imageView.setImageResource(list.get(position).getProducto().getImagen());
         //imageView.setImageResource(list.get(position).getImagen();
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);

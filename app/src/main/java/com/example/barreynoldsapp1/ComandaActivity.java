@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import javax.xml.transform.stream.StreamResult;
 public class ComandaActivity extends AppCompatActivity {
     private  ArrayList<Comanda> arrayComanda = new ArrayList<>();
    private ListView lista1;
+    Button deleteBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,14 @@ public class ComandaActivity extends AppCompatActivity {
         lista1 = findViewById(R.id.listView1);
         recuperarObjeto();
 
+        deleteBtn =(Button)findViewById(R.id.delete_btn);
+
         MyCustomAdapter adaptador = new MyCustomAdapter(arrayComanda, this);
         lista1.setAdapter(adaptador);
         Collections.sort(arrayComanda);
     }
+
+
 
     public void recuperarObjeto() {
         Comanda c;
