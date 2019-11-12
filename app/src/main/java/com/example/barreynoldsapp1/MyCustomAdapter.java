@@ -1,6 +1,8 @@
 package com.example.barreynoldsapp1;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +12,17 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Comanda> list = new ArrayList<>();
-    private Context context;
+import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
 
-    public MyCustomAdapter(ArrayList<Comanda> list, Context context) {
-        this.list = list;
+public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
+    ArrayList<Comanda> list = arrayComanda;
+
+    private Context context;
+    public MyCustomAdapter(ArrayList<Comanda> arrayComanda, Context context) {
+        this.list = arrayComanda;
         this.context = context;
     }
 
@@ -84,4 +89,5 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
+
 }

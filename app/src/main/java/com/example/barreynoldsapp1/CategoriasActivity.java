@@ -40,6 +40,7 @@ public class CategoriasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
+        arrayComanda2=new ArrayList<>();
         i = new Intent(this, ComandaActivity.class);
         categoria = getIntent().getStringExtra("categoria");
         resources = getResources();
