@@ -47,14 +47,11 @@ public class ComandaActivity extends AppCompatActivity {
    TextView tvv;
     Button deleteBtn,addBtn;
     Document doc;
-    Element comanda,producte,nom,quantitat,preu;
-    File comandaFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
         lista1 = findViewById(R.id.listView1);
-        comandaFile=new File(getFilesDir(),"comanda.xml");
 
         recuperarObjeto();
 
@@ -72,43 +69,6 @@ public class ComandaActivity extends AppCompatActivity {
             Collections.sort(arrayComanda);
             añadirCantidadAlProducto();
         }
-    }
-    public void guardarComanda() throws TransformerException, IOException {
-
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.newDocument();
-             comanda = doc.createElement("comanda");
-            // comanda = doc.getDocumentElement();
-             nom = doc.createElement("nom");
-             preu = doc.createElement("preu");
-             quantitat = doc.createElement("quantitat");
-
-
-        }  catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        for(int i=0;i<arrayComanda.size();i++) {
-            producte = doc.createElement("producte");
-            nom.appendChild(doc.createTextNode(arrayComanda.get(i).getProducto().getNombre()));
-            preu.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getPrecio())));
-            quantitat.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getCantidad())));
-            producte.appendChild(nom);
-            producte.appendChild(preu);
-            producte.appendChild(quantitat);
-
-            comanda.appendChild(producte);
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(comandaFile);
-
-            transformer.transform(source, result);
-        }
-        doc.appendChild(comanda);
     }
 
     public void añadirCantidadAlProducto() {
@@ -131,22 +91,9 @@ public class ComandaActivity extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed(){
+    /*public void onBackPressed(){
         Log.d("-------","apreto boton atras");
-        try {
             Log.d("---....----",arrayComanda.toString());
-            guardarComanda();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         super.onBackPressed();
-
-    }
-
-    public Button getDeleteBtn() {
-        return deleteBtn;
-    }
-
+    }*/
 }

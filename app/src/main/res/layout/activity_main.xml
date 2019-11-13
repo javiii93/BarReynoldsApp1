@@ -68,6 +68,25 @@
         android:onClick="onClick"
         app:srcCompat="@drawable/tapaspng_1" />
 
+    <ImageButton
+        android:id="@+id/imageButtonFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="162dp"
+        android:layout_marginLeft="162dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginRight="172dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/rectangle_5"
+        android:onClick="onClickFinal"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/white_check" />
+
 
     <!-- BEBIDALOL 1 -->
 

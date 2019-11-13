@@ -113,6 +113,7 @@ public class CategoriasActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+
     public String acortarRuta(String s) {
         String result;
         for (int i = s.length() - 1; i > 0; i--) {
