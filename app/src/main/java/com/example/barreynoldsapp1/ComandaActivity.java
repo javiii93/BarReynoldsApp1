@@ -2,28 +2,16 @@ package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,40 +23,29 @@ import javax.xml.transform.stream.StreamResult;
 public class ComandaActivity extends AppCompatActivity {
     private ArrayList<Comanda> arrayComanda = new ArrayList<>();
     private ListView lista1;
-    Button deleteBtn;
-    Intent i;
-    MyCustomAdapter adaptador;
+    private File file;
+    private String rutaComandaXml="comanda.xml";
+    private MyCustomAdapter adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
-        i = new Intent(this, CategoriasActivity.class);
+        file=new File(getFilesDir(), rutaComandaXml);
         lista1 = findViewById(R.id.listView1);
+        if (file.exists()){
+            recuperarComanda();
+        }
         recuperarObjeto();
-
-        deleteBtn = (Button) findViewById(R.id.delete_btn);
-
+        Collections.sort(arrayComanda);
         adaptador = new MyCustomAdapter(arrayComanda, this);
         lista1.setAdapter(adaptador);
-        //arrayComanda= adaptador.getList();
-        Collections.sort(arrayComanda);
-        System.out.println("entro");
     }
 
 
     public void onBackPressed() {
-      //  guardarComanda();
-      /*  System.out.println(adaptador.getCount());
-        adaptador.setList(arrayComanda);
-        //arrayComanda.clear();
-        for(int j=0;j<adaptador.getCount();j++){
-          //  arrayComanda.get(j).setCantidad(adaptador.getList().get(j).getCantidad());
-          //  arrayComanda.add((Comanda)adaptador.getItem(j));
-        }*/
-        // arrayComanda=adaptador.getList();
-        //i.putExtra("sampleObject2",enviarArrayProductosActualizada(adaptador.getList()));
-        super.onBackPressed();
+       guardarComanda();
+       super.onBackPressed();
     }
 
     public ArrayList<Producto> enviarArrayProductosActualizada(ArrayList<Comanda> ac) {
@@ -83,7 +60,6 @@ public class ComandaActivity extends AppCompatActivity {
         Comanda c;
         ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");
         for (int i = 0; i < p.size(); i++) {
-
             c = new Comanda(p.get(i), 1, p.get(i).getImagen());
             arrayComanda.add(c);
             Collections.sort(arrayComanda);
@@ -92,11 +68,11 @@ public class ComandaActivity extends AppCompatActivity {
         }
     }
 
-  /*  public void guardarComanda() {
+    public void guardarComanda() {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(istream);
+            Document doc = dBuilder.newDocument();
             // definimos el elemento raíz del documento
             Element eRaiz = doc.createElement("comanda");
             doc.appendChild(eRaiz);
@@ -105,13 +81,26 @@ public class ComandaActivity extends AppCompatActivity {
                 Element eProducto = doc.createElement("producto");
                 eRaiz.appendChild(eProducto);
                 // atributo para el nodo jugador
-                Attr attr = doc.createAttribute("Numero");
-                attr.setValue(String.valueOf(i + 1));
+                Attr attr = doc.createAttribute("id");
+                attr.setValue(String.valueOf(arrayComanda.get(i).getProducto().getId()));
                 eProducto.setAttributeNode(attr);
                 // definimos cada uno de los elementos y le asignamos un valor
                 Element eNombre = doc.createElement("nombre");
                 eNombre.appendChild(doc.createTextNode(arrayComanda.get(i).getProducto().getNombre()));
                 eProducto.appendChild(eNombre);
+
+                Element ePrecio = doc.createElement("precio");
+                ePrecio.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getPrecio())));
+                eProducto.appendChild(ePrecio);
+
+                Element eDescripcion = doc.createElement("descripcion");
+                eDescripcion.appendChild(doc.createTextNode(arrayComanda.get(i).getProducto().getDescripcion()));
+                eProducto.appendChild(eDescripcion);
+
+                Element eImagen = doc.createElement("imagen");
+                eImagen.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getImagen())));
+                eProducto.appendChild(eImagen);
+
                 Element eCantidad = doc.createElement("cantidad");
                 eCantidad.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getCantidad())));
                 eProducto.appendChild(eCantidad);
@@ -120,23 +109,42 @@ public class ComandaActivity extends AppCompatActivity {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-           // StreamResult result = new StreamResult(file);
+            StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-*/
 
     public void recuperarComanda() {
+        Producto p1=new Producto();
+        Comanda c1=new Comanda();
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            NodeList nList = doc.getElementsByTagName("producto");
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    p1.setNombre(eElement.getElementsByTagName("nombre").item(0).getTextContent());
+                    p1.setPrecio(Float.parseFloat(eElement.getElementsByTagName("precio").item(0).getTextContent()));
+                    p1.setDescripcion(eElement.getElementsByTagName("descripcion").item(0).getTextContent());
+                    p1.setImagen(Integer.parseInt(eElement.getElementsByTagName("imagen").item(0).getTextContent()));
+                    c1.setProducto(p1);
+                    c1.setCantidad(Integer.parseInt(eElement.getElementsByTagName("cantidad").item(0).getTextContent()));
+              arrayComanda.add(c1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

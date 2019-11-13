@@ -1,7 +1,6 @@
 package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -26,13 +25,11 @@ public class CategoriasActivity extends AppCompatActivity {
     private String categoria;
     private ListView lista;
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
-    private ArrayList<Producto> arrayComanda2 = new ArrayList<>();
+    private ArrayList<Producto> arrayProductosSeleccionados = new ArrayList<>();
     private MyCustomAdapter2 adaptador;
-    //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
-    Intent i;
-    Resources resources;
-    XmlResourceParser xmlParser;
+    private Intent i;
+    private int cont = 0;
     Document doc;
     Producto p1;
 
@@ -44,12 +41,12 @@ public class CategoriasActivity extends AppCompatActivity {
         categoria = getIntent().getStringExtra("categoria");
         //resources = getResources();
         System.out.println("categoriActivity");
-       /* if (!arrayComanda2.isEmpty()) {
-            arrayComanda2.clear();
+       /* if (!arrayProductosSeleccionados.isEmpty()) {
+            arrayProductosSeleccionados.clear();
 
             ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject2");
             for (int i = 0; i < p.size(); i++) {
-                arrayComanda2.add(p.get(i));
+                arrayProductosSeleccionados.add(p.get(i));
             }
         }*/
 
@@ -64,7 +61,8 @@ public class CategoriasActivity extends AppCompatActivity {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                arrayComanda2.add((Producto) parent.getItemAtPosition(position));
+                arrayProductosSeleccionados.add((Producto) parent.getItemAtPosition(position));
+
             }
         });
 
@@ -72,8 +70,6 @@ public class CategoriasActivity extends AppCompatActivity {
 
     public void pasarProductosAComanda(ArrayList<Producto> p) {
         i.putExtra("sampleObject", p);
-        //  p.setImagen(0);
-        // startActivity(i);
     }
 
     public void recuperarProductos() {
@@ -94,31 +90,28 @@ public class CategoriasActivity extends AppCompatActivity {
                 if (nl2.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element el = (Element) nl2.item(i);
                     p1 = new Producto();
+                    p1.setId(Integer.parseInt( el.getAttribute("id")));
                     p1.setNombre(el.getElementsByTagName("nom").item(0).getTextContent());
                     p1.setPrecio(Float.parseFloat(el.getElementsByTagName("preu").item(0).getTextContent()));
                     p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
                     p1.setCategoria(categoria);
-                    //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("").item(0).getTextContent()));
+                    //p1.setCantidad(Integer.parseInt(el.getElementsByTagName("cantitat").item(0).getTextContent()));
                     String ruta = acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
                     int drawableResourceId = getResources().getIdentifier(ruta, "drawable", getPackageName());
                     p1.setImagen(drawableResourceId);
                     arrayProductos.add(p1);
-
                 }
             }
-
-            // Rellenar imagenes
-            //queryXpath(categoria);
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 
     public void onClick(View view) {
-        pasarProductosAComanda(arrayComanda2);
+        pasarProductosAComanda(arrayProductosSeleccionados);
         startActivity(i);
+        arrayProductosSeleccionados.clear();
+        //System.out.println(arrayProductosSeleccionados.size()+ "tamaño lista productos seleccionados");
     }
 
     public String acortarRuta(String s) {
