@@ -84,4 +84,11 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
+
+    public ArrayList<Comanda> getList() {
+        return list;
+    }
+    public void setList( ArrayList<Comanda> arrayComanda){
+        this.list=arrayComanda;
+    }
 }

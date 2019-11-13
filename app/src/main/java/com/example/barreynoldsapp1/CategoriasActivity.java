@@ -26,7 +26,7 @@ public class CategoriasActivity extends AppCompatActivity {
     private String categoria;
     private ListView lista;
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
-    private ArrayList<Producto> arrayComanda2=new ArrayList<>();
+    private ArrayList<Producto> arrayComanda2 = new ArrayList<>();
     private MyCustomAdapter2 adaptador;
     //private ArrayAdapter<Producto> adaptador;
     private String imgUri;
@@ -42,8 +42,17 @@ public class CategoriasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categorias);
         i = new Intent(this, ComandaActivity.class);
         categoria = getIntent().getStringExtra("categoria");
-        resources = getResources();
-        // Instanciamos objetos Clase R
+        //resources = getResources();
+        System.out.println("categoriActivity");
+       /* if (!arrayComanda2.isEmpty()) {
+            arrayComanda2.clear();
+
+            ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject2");
+            for (int i = 0; i < p.size(); i++) {
+                arrayComanda2.add(p.get(i));
+            }
+        }*/
+
         lista = findViewById(R.id.listView);
         recuperarProductos();
         //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
@@ -52,19 +61,19 @@ public class CategoriasActivity extends AppCompatActivity {
        /* Producto pp=new Producto();
         pp.setNombre("fsdafdas");
         pasarProductosAComanda(pp);*/
-       lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               arrayComanda2.add((Producto)parent.getItemAtPosition(position));
-           }
-       });
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                arrayComanda2.add((Producto) parent.getItemAtPosition(position));
+            }
+        });
 
     }
 
     public void pasarProductosAComanda(ArrayList<Producto> p) {
         i.putExtra("sampleObject", p);
-      //  p.setImagen(0);
-       // startActivity(i);
+        //  p.setImagen(0);
+        // startActivity(i);
     }
 
     public void recuperarProductos() {
