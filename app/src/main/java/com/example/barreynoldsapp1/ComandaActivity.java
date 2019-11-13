@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,11 +45,12 @@ import javax.xml.transform.stream.StreamResult;
 
 public class ComandaActivity extends AppCompatActivity {
     public static  ArrayList<Comanda> arrayComanda = new ArrayList<>();
-    private ListView lista1;
+    public ListView lista1;
    TextView tvv;
     Button deleteBtn,addBtn;
     Document doc;
     Comanda c = new Comanda();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class ComandaActivity extends AppCompatActivity {
         lista1 = findViewById(R.id.listView1);
         MyCustomAdapter adaptador = new MyCustomAdapter(arrayProductos2, this);
         lista1.setAdapter(adaptador);
+
     }
     public void recuperarObjeto() {
         ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");

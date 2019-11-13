@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +21,7 @@ import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
     ArrayList<Producto> list = arrayProductos2;
-
+    View view;
     private Context context;
     public MyCustomAdapter(ArrayList<Producto> list, Context context) {
         this.list = arrayProductos2;
@@ -43,18 +44,23 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
         final int pos = position;
 
-        View view = convertView;
+        view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.layout_adapter, null);
         }
+        // Smooth Animation
+        final TranslateAnimation animation = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 1.0f, TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(5555);
 
         //Handle TextView and display string from your list
-        TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
+        final TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
         listItemText.setText(list.get(position).toString() );
 
@@ -70,13 +76,17 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.get(pos).getCantidad() == 1) {
-                    list.remove(pos);
-                    //este hace un refresh de el adapter
-                    MyCustomAdapter.this.notifyDataSetChanged();
-                } else {
-                    list.get(pos).setCantidad((list.get(pos).getCantidad()) - 1);
+                if(list.get(pos).getCantidad()==1) {
+                    // Animacion Smooth Start
+                    listItemText.startAnimation(animation);
+
+                    list.remove(list.get(pos));
                 }
+                else {
+                    list.get(pos).setCantidad(list.get(pos).getCantidad()-1);
+                }
+
+                // Este hace un refresh de el adapter
                 MyCustomAdapter.this.notifyDataSetChanged();
             }
         });
@@ -90,5 +100,6 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
+
 
 }
