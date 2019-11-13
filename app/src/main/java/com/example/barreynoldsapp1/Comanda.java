@@ -74,4 +74,7 @@ public class Comanda implements Comparable<Comanda> {
         }
         return 0;
     }
+
+    public Comanda() {
+    }
 }

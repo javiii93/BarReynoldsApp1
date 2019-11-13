@@ -15,14 +15,15 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
+//import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
+import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    ArrayList<Comanda> list = arrayComanda;
+    ArrayList<Producto> list = arrayProductos2;
 
     private Context context;
-    public MyCustomAdapter(ArrayList<Comanda> arrayComanda, Context context) {
-        this.list = arrayComanda;
+    public MyCustomAdapter(ArrayList<Producto> list, Context context) {
+        this.list = arrayProductos2;
         this.context = context;
     }
 
@@ -55,13 +56,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         //Handle TextView and display string from your list
         TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
-        listItemText.setText(list.get(position).getProducto().toString() );
+        listItemText.setText(list.get(position).toString() );
 
         TextView textView= (TextView) view.findViewById(R.id.textView2);
         textView.setText(String.valueOf(list.get(position).getCantidad()));
 
         ImageView imageView= (ImageView) view.findViewById(R.id.imageView3);
-        imageView.setImageResource(list.get(position).getProducto().getImagen());
+        imageView.setImageResource(list.get(position).getImagen());
         //imageView.setImageResource(list.get(position).getImagen();
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,57 +44,32 @@ import javax.xml.transform.stream.StreamResult;
 
 public class ComandaActivity extends AppCompatActivity {
     public static  ArrayList<Comanda> arrayComanda = new ArrayList<>();
-   private ListView lista1;
+    private ListView lista1;
    TextView tvv;
     Button deleteBtn,addBtn;
     Document doc;
+    Comanda c = new Comanda();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
-        lista1 = findViewById(R.id.listView1);
 
+        // Recoge los productos de CategoriasActivity los añade a arrayComanda
         recuperarObjeto();
-
-        MyCustomAdapter adaptador = new MyCustomAdapter(arrayComanda, this);
+        lista1 = findViewById(R.id.listView1);
+        MyCustomAdapter adaptador = new MyCustomAdapter(arrayProductos2, this);
         lista1.setAdapter(adaptador);
-        Collections.sort(arrayComanda);
     }
-
     public void recuperarObjeto() {
-        Comanda c;
         ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");
+        Collections.sort(p);
+
         for(int i=0;i<p.size();i++){
-            c = new Comanda(p.get(i), 1,p.get(i).getImagen());
-            arrayComanda.add(c);
-            Collections.sort(arrayComanda);
-            añadirCantidadAlProducto();
+            c.setProducto(p.get(i));
+            c.setCantidad(p.get(i).getCantidad());
+            c.setImagen(p.get(i).getImagen());
+
+            Collections.sort(arrayProductos2);
         }
     }
-
-    public void añadirCantidadAlProducto() {
-        if (arrayComanda.size() > 1) {
-            for (int i = 0; i <= arrayComanda.size(); i++) {
-                try {
-                    if (arrayComanda.get(i).getProducto().getNombre().equalsIgnoreCase(arrayComanda.get(i + 1).getProducto().getNombre())) {
-                        if (arrayComanda.get(i).getCantidad() > arrayComanda.get(i + 1).getCantidad()) {
-                            //arrayComanda.get(i).setCantidad(arrayComanda.get(i).getCantidad() + 1);
-                            arrayComanda.remove(i + 1);
-                        } else {
-                            //arrayComanda.get(i + 1).setCantidad(arrayComanda.get(i + 1).getCantidad() + 1);
-                            arrayComanda.remove(i);
-                        }
-                    }
-                }catch (Exception e){
-
-                }
-            }
-        }
-    }
-
-    /*public void onBackPressed(){
-        Log.d("-------","apreto boton atras");
-            Log.d("---....----",arrayComanda.toString());
-        super.onBackPressed();
-    }*/
 }
