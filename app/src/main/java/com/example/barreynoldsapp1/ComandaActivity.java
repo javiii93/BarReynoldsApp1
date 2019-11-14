@@ -61,6 +61,7 @@ public class ComandaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+        Collections.sort(arrayProductos2);
 
         MyCustomAdapter adaptador = new MyCustomAdapter(arrayProductos2, this);
 

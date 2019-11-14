@@ -39,11 +39,13 @@ public class CategoriasActivity extends AppCompatActivity {
     XmlResourceParser xmlParser;
     Document doc;
     Producto p1;
+    boolean cambiado=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
+        Collections.sort(arrayProductos2);
 
         i = new Intent(this, ComandaActivity.class);
         categoria = getIntent().getStringExtra("categoria");
@@ -65,13 +67,18 @@ public class CategoriasActivity extends AppCompatActivity {
                }
                else {
                    for (int i = 0; i < arrayProductos2.size(); i++) {
-                       if (arrayProductos2.get(i) == p) {
+                       if (arrayProductos2.get(i).getNombre().equals(p.getNombre())) {
                            arrayProductos2.get(i).setCantidad(arrayProductos2.get(i).getCantidad() + 1);
-                       } else if(!arrayProductos2.contains(p)){
-                           arrayProductos2.add(p);
+                           cambiado=true;
                        }
                    }
+                   if(cambiado==false){
+                       p.setCantidad(1);
+                       arrayProductos2.add(p);
+                   }
                }
+               cambiado=false;
+
                Collections.sort(arrayProductos2);
            }
        });
