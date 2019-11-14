@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -28,20 +29,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
 
 public class MainActivity extends AppCompatActivity {
     Button b;
-    Document doc;
-    Element comanda,producte,nom,quantitat,preu;
-    File comandaFile;
+    private File file;
+    private String rutaComandaXml="comanda.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        comandaFile=new File(getFilesDir(),"comanda.xml");
-
     }
 
     public void onClick(View view) {
@@ -50,40 +49,60 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("categoria",((ImageButton)view).getContentDescription().toString());
         startActivity(i);
     }
-    public void onClickFinal(View view) throws TransformerException {
+    public void onClickFinal(View view) {
+      guardarComanda();
+    }
+    public void guardarComanda() {
         try {
+            file=new File(getFilesDir(),rutaComandaXml);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.newDocument();
-            comanda = doc.createElement("comanda");
-            // comanda = doc.getDocumentElement();
-            nom = doc.createElement("nom");
-            preu = doc.createElement("preu");
-            quantitat = doc.createElement("quantitat");
+            Document doc = dBuilder.newDocument();
+            // definimos el elemento raíz del documento
+            Element eRaiz = doc.createElement("comanda");
+            doc.appendChild(eRaiz);
+            for (int i = 0; i < arrayProductos2.size(); i++) {
+                // definimos el nodo que contendrá los elementos
+                Element eProducto = doc.createElement("producto");
+                eRaiz.appendChild(eProducto);
+                // atributo para el nodo jugador
+                Attr attr = doc.createAttribute("id");
+                attr.setValue(String.valueOf(arrayProductos2.get(i).getId()));
+                eProducto.setAttributeNode(attr);
+                // definimos cada uno de los elementos y le asignamos un valor
+                Element eNombre = doc.createElement("nombre");
+                eNombre.appendChild(doc.createTextNode(arrayProductos2.get(i).getNombre()));
+                eProducto.appendChild(eNombre);
 
+                Element ePrecio = doc.createElement("precio");
+                ePrecio.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getPrecio())));
+                eProducto.appendChild(ePrecio);
 
-        }  catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+                Element eDescripcion = doc.createElement("descripcion");
+                eDescripcion.appendChild(doc.createTextNode(arrayProductos2.get(i).getDescripcion()));
+                eProducto.appendChild(eDescripcion);
 
-        for(int i=0;i<arrayComanda.size();i++) {
-            producte = doc.createElement("producte");
-            nom.appendChild(doc.createTextNode(arrayComanda.get(i).getProducto().getNombre()));
-            preu.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getPrecio())));
-            quantitat.appendChild(doc.createTextNode(String.valueOf(arrayComanda.get(i).getProducto().getCantidad())));
-            producte.appendChild(nom);
-            producte.appendChild(preu);
-            producte.appendChild(quantitat);
+                Element eImagen = doc.createElement("imagen");
+                eImagen.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getImagen())));
+                eProducto.appendChild(eImagen);
 
-            comanda.appendChild(producte);
-
+                Element eCantidad = doc.createElement("cantidad");
+                eCantidad.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getCantidad())));
+                eProducto.appendChild(eCantidad);
+            }
+            // clases necesarias finalizar la creación del archivo XML
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(comandaFile);
-
+            StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
+
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        doc.appendChild(comanda);
     }
+
 }

@@ -7,11 +7,20 @@ import android.widget.ImageView;
 import java.io.Serializable;
 
 public class Producto implements Comparable<Producto>, Serializable {
+    private int id;
     private String nombre;
     private float precio;
     private String descripcion, categoria;
     private int cantidad;
     private int imagen;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;

@@ -103,6 +103,7 @@ public class CategoriasActivity extends AppCompatActivity {
                 if (nl2.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element el = (Element) nl2.item(i);
                     p1 = new Producto();
+                    p1.setId(Integer.parseInt( el.getAttribute("id")));
                     p1.setNombre(el.getElementsByTagName("nom").item(0).getTextContent());
                     p1.setPrecio(Float.parseFloat(el.getElementsByTagName("preu").item(0).getTextContent()));
                     p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
@@ -138,4 +139,5 @@ public class CategoriasActivity extends AppCompatActivity {
         }
         return null;
     }
+
 }
