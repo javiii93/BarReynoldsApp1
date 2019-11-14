@@ -47,7 +47,7 @@ public class Comanda implements Comparable<Comanda> {
     @Override
     public int compareTo(Comanda o) {
         String stringThis = this.getProducto().getNombre();
-        String stringO = o.producto.getNombre();
+        String stringO = o.getProducto().getNombre();
         if (!stringThis.equalsIgnoreCase(stringO)) {
             if (stringThis.charAt(0) < stringO.charAt(0)) {
                 return -1;
@@ -55,7 +55,7 @@ public class Comanda implements Comparable<Comanda> {
                 return 1;
             } else {
                 if (stringThis.length() > stringO.length()) {
-                    for (int i = 1; i < this.getProducto().getNombre().length(); i++) {
+                    for (int i = 1; i < stringThis.length(); i++) {
                         if (stringThis.charAt(i) < stringO.charAt(i)) {
                             return -1;
                         } else if (stringThis.charAt(i) > stringO.charAt(i)) {

@@ -3,8 +3,6 @@ package com.example.barreynoldsapp1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +25,6 @@ public class CategoriasActivity extends AppCompatActivity {
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
     private ArrayList<Producto> arrayProductosSeleccionados = new ArrayList<>();
     private MyCustomAdapter2 adaptador;
-    private String imgUri;
     private Intent i;
     private int cont = 0;
     Document doc;
@@ -39,8 +36,6 @@ public class CategoriasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categorias);
         i = new Intent(this, ComandaActivity.class);
         categoria = getIntent().getStringExtra("categoria");
-        //resources = getResources();
-        System.out.println("categoriActivity");
        /* if (!arrayProductosSeleccionados.isEmpty()) {
             arrayProductosSeleccionados.clear();
 
@@ -49,23 +44,17 @@ public class CategoriasActivity extends AppCompatActivity {
                 arrayProductosSeleccionados.add(p.get(i));
             }
         }*/
-
         lista = findViewById(R.id.listView);
         recuperarProductos();
-        //adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayProductos);
         adaptador = new MyCustomAdapter2(arrayProductos, this);
         lista.setAdapter(adaptador);
-       /* Producto pp=new Producto();
-        pp.setNombre("fsdafdas");
-        pasarProductosAComanda(pp);*/
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 arrayProductosSeleccionados.add((Producto) parent.getItemAtPosition(position));
-
             }
         });
-
+        System.out.println(categoria+" dentro del onCreate");
     }
 
     public void pasarProductosAComanda(ArrayList<Producto> p) {
@@ -110,8 +99,9 @@ public class CategoriasActivity extends AppCompatActivity {
     public void onClick(View view) {
         pasarProductosAComanda(arrayProductosSeleccionados);
         startActivity(i);
+        System.out.println(arrayProductosSeleccionados.size()+ "tamaño lista productos seleccionados");
         arrayProductosSeleccionados.clear();
-        //System.out.println(arrayProductosSeleccionados.size()+ "tamaño lista productos seleccionados");
+        System.out.println(arrayProductosSeleccionados.size()+ "tamaño lista productos seleccionados");
     }
 
     public String acortarRuta(String s) {

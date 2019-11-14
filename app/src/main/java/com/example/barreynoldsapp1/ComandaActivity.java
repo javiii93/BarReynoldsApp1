@@ -62,10 +62,16 @@ public class ComandaActivity extends AppCompatActivity {
         for (int i = 0; i < p.size(); i++) {
             c = new Comanda(p.get(i), 1, p.get(i).getImagen());
             arrayComanda.add(c);
-            Collections.sort(arrayComanda);
-            añadirCantidadAlProducto();
-
+            //System.out.println(c.getProducto().getNombre());
         }
+        Collections.sort(arrayComanda);
+
+        for(int i=0;i<arrayComanda.size();i++){
+            System.out.println(  arrayComanda.get(i).getProducto().getNombre());
+            System.out.println( arrayComanda.get(i).getCantidad());
+        }
+
+        añadirCantidadAlProducto();
     }
 
     public void guardarComanda() {
@@ -144,14 +150,12 @@ public class ComandaActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void añadirCantidadAlProducto() {
         if (arrayComanda.size() > 1) {
-            for (int i = 0; i <= arrayComanda.size(); i++) {
-                try {
+            try{
+            for (int i = 0; i+1 <= arrayComanda.size(); i++) {
                     if (arrayComanda.get(i).getProducto().getNombre().equalsIgnoreCase(arrayComanda.get(i + 1).getProducto().getNombre())) {
                         if (arrayComanda.get(i).getCantidad() > arrayComanda.get(i + 1).getCantidad()) {
                             arrayComanda.get(i).setCantidad(arrayComanda.get(i).getCantidad() + 1);
@@ -161,9 +165,8 @@ public class ComandaActivity extends AppCompatActivity {
                             arrayComanda.remove(i);
                         }
                     }
-                } catch (Exception e) {
+            }}catch (Exception e){
 
-                }
             }
         }
     }
