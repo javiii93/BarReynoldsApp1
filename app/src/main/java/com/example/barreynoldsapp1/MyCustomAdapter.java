@@ -6,20 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
-//import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
