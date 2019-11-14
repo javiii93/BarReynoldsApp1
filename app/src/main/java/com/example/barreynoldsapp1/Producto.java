@@ -14,6 +14,7 @@ public class Producto implements Comparable<Producto>, Serializable {
     private int cantidad;
     private int imagen;
 
+
     public String getNombre() {
         return nombre;
     }
@@ -90,17 +91,34 @@ public class Producto implements Comparable<Producto>, Serializable {
                 ;
     }
 
-
-
-    @Override
-    public int compareTo(Producto o) {
-        if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
-            return -1;
-        } else if (this.categoria.charAt(0) < o.categoria.charAt(0)) {
-            return 1;
-        }
-        return 0;
-
-
-    }
+   public int compareTo(Producto o) {
+       String stringThis = getNombre();
+       String stringO = getNombre();
+       if (!stringThis.equalsIgnoreCase(stringO)) {
+           if (stringThis.charAt(0) < stringO.charAt(0)) {
+               return -1;
+           } else if (stringThis.charAt(0) > stringO.charAt(0)) {
+               return 1;
+           } else {
+               if (stringThis.length() > stringO.length()) {
+                   for (int i = 1; i < getNombre().length(); i++) {
+                       if (stringThis.charAt(i) < stringO.charAt(i)) {
+                           return -1;
+                       } else if (stringThis.charAt(i) > stringO.charAt(i)) {
+                           return 1;
+                       }
+                   }
+               } else {
+                   for (int i = 1; i < stringO.length(); i++) {
+                       if (stringThis.charAt(i) < stringO.charAt(i)) {
+                           return -1;
+                       } else if (stringThis.charAt(i) > stringO.charAt(i)) {
+                           return 1;
+                       }
+                   }
+               }
+           }
+       }
+       return 0;
+   }
 }

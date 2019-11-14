@@ -54,20 +54,6 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
         TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
         listItemText.setText(list.get(position).toString());
-        //list.get(position).setImagen(img);
-        //Handle buttons and add onClickListeners
-
-        /*view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             //  CategoriasActivity ca =new CategoriasActivity();
-                // ca = new CategoriasActivity();
-               // ca.pasarProductosAComanda(list.get(pos));
-
-            }
-        });*/
-
-
 
         return view;
 
