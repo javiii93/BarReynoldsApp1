@@ -6,11 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -54,10 +57,6 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.layout_adapter, null);
         }
         // Smooth Animation
-        final TranslateAnimation animation = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 1.0f, TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0.0f);
-        animation.setDuration(5555);
 
         //Handle TextView and display string from your list
         final TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
@@ -78,8 +77,6 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 if(list.get(pos).getCantidad()==1) {
                     // Animacion Smooth Start
-                    listItemText.startAnimation(animation);
-
                     list.remove(list.get(pos));
                 }
                 else {
@@ -88,6 +85,8 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
 
                 // Este hace un refresh de el adapter
                 MyCustomAdapter.this.notifyDataSetChanged();
+                imprimirProductos();
+
             }
         });
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,10 +94,15 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 list.get(pos).setCantidad((list.get(pos).getCantidad()) + 1);
                 MyCustomAdapter.this.notifyDataSetChanged();
+                imprimirProductos();
             }
         });
-
         return view;
+    }
+    public static void imprimirProductos(){
+        for (int i=0;i<arrayProductos2.size();i++){
+            Log.d("--- List",arrayProductos2.get(i).getNombre()+"\n"+arrayProductos2.get(i).getCantidad());
+        }
     }
 
 

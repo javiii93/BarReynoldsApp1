@@ -24,6 +24,7 @@ import java.util.Collections;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+
 public class CategoriasActivity extends AppCompatActivity {
     private String categoria;
     private ListView lista;
@@ -118,7 +119,6 @@ public class CategoriasActivity extends AppCompatActivity {
         pasarProductosAComanda(arrayProductos2);
         startActivity(i);
     }
-
 
     public String acortarRuta(String s) {
         String result;
