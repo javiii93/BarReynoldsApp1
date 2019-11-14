@@ -13,7 +13,6 @@ public class Comanda implements Comparable<Comanda> {
         this.imagen= imagen;
 
     }
-    public Comanda(){};
 
     public int getImagen() {
         return imagen;
