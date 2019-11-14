@@ -62,16 +62,9 @@ public class ComandaActivity extends AppCompatActivity {
         for (int i = 0; i < p.size(); i++) {
             c = new Comanda(p.get(i), 1, p.get(i).getImagen());
             arrayComanda.add(c);
-            //System.out.println(c.getProducto().getNombre());
         }
         Collections.sort(arrayComanda);
-
-        for(int i=0;i<arrayComanda.size();i++){
-            System.out.println(  arrayComanda.get(i).getProducto().getNombre());
-            System.out.println( arrayComanda.get(i).getCantidad());
-        }
-
-        añadirCantidadAlProducto();
+       añadirCantidadAlProducto();
     }
 
     public void guardarComanda() {
