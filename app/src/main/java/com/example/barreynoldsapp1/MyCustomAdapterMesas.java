@@ -13,10 +13,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<Button> list = new ArrayList<>();
     private Context context;
-    private CategoriasActivity ca;
-    public MyCustomAdapterMesas(ArrayList<String> list, Context context) {
+    int i=1;
+
+    public MyCustomAdapterMesas(ArrayList<Button> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -46,6 +47,12 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.layout_adapter_mesas, null);
         }
+
+        Button b1 = view.findViewById(R.id.buttonMesa);
+        b1.setText("Mesa "+i);
+        b1.setFocusable(false);
+        b1.setClickable(false);
+        i++;
         return view;
 
     }

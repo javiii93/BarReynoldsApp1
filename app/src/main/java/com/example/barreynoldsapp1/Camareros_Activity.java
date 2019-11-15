@@ -18,6 +18,7 @@ public class Camareros_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camareros);
+
         Empleados e=new Empleados("manolo","bigBoss","pdaManolo");
         Empleados e3=new Empleados("rafa","bigBoss","pdaRafa");
         Empleados e4=new Empleados("gus","bigBoss","pdagus");

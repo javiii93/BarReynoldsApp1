@@ -3,7 +3,9 @@ package com.example.barreynoldsapp1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,21 +30,26 @@ public class MesasActivity extends AppCompatActivity {
     Document doc;
     int numeroMesas;
     ListView listViewMesas;
-    ArrayList<String>arrayMesas=new ArrayList<>();
-    ArrayList<Button>arrayBotones=new ArrayList<>();
+    ArrayList<Button>arrayMesas=new ArrayList<>();
     Intent intent;
-    private MyCustomAdapterMesas adaptador;
     Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
+
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);
-
         listViewMesas.setDivider(null);
         listViewMesas.setDividerHeight(0);
         intent=new Intent(this,MainActivity.class);
+
+
+        listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
+                startActivity(intent);
+            }
+        });
         try {
             numeroMesas=recuperarMesas();
         } catch (IOException e) {
@@ -52,20 +59,13 @@ public class MesasActivity extends AppCompatActivity {
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        for(int i=1;i<=numeroMesas;i++){
-            arrayMesas.add("Mesa "+i);
-           // arrayBotones.add(new Button(this,0,));
+
+        for(int i=0;i<numeroMesas;i++){
+            arrayMesas.add(b1);
         }
-        adaptador= new MyCustomAdapterMesas(arrayMesas,this);
+
+        MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
         listViewMesas.setAdapter(adaptador);
-        listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                startActivity(intent);
-            }
-        });
-
 
     }
     public Integer recuperarMesas() throws IOException, ParserConfigurationException, SAXException {
@@ -77,4 +77,5 @@ public class MesasActivity extends AppCompatActivity {
         Element e1=(Element)nl.item(0);
         return Integer.valueOf(e1.getTextContent());
     }
+
 }
