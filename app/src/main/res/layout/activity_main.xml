@@ -18,8 +18,9 @@
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginBottom="386dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button"
         android:contentDescription="begudes"
+        android:focusable="true"
         android:onClick="onClick"
         app:srcCompat="@drawable/bebidalol_1" />
 
@@ -33,7 +34,7 @@
         android:layout_marginStart="238dp"
         android:layout_marginLeft="238dp"
         android:layout_marginBottom="383dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button"
         android:contentDescription="entrepans"
         android:onClick="onClick"
         app:srcCompat="@drawable/bocadillo2_1" />
@@ -48,7 +49,7 @@
         android:layout_marginStart="57dp"
         android:layout_marginLeft="57dp"
         android:layout_marginBottom="182dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button"
         android:contentDescription="plats"
         android:onClick="onClick"
         app:srcCompat="@drawable/comidapng_1" />
@@ -63,7 +64,7 @@
         android:layout_marginStart="238dp"
         android:layout_marginLeft="238dp"
         android:layout_marginBottom="184dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button"
         android:contentDescription="tapes"
         android:onClick="onClick"
         app:srcCompat="@drawable/tapaspng_1" />
@@ -82,76 +83,10 @@
         android:layout_marginEnd="172dp"
         android:layout_marginRight="172dp"
         android:layout_marginBottom="26dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button"
         android:onClick="onClickFinal"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/white_check" />
-
-
-    <!-- BEBIDALOL 1 -->
-
-
-    <!-- drawable/bebidalol_1.xml -->
-
-
-    <!-- Rectangle 8 -->
-
-
-    <!-- drawable/rectangle_8.xml -->
-
-
-    <!-- BOCADILLO2 1 -->
-
-
-    <!-- drawable/bocadillo2_.xml -->
-
-
-    <!-- Botón Tapas -->
-
-
-    <!-- drawable/bot_n_tapas.xml -->
-
-
-    <!-- TAPASPNG 1 -->
-
-
-    <!-- drawable/tapaspng_1.xml -->
-
-
-    <!-- Botón Cafe -->
-
-
-    <!-- drawable/bot_n_cafe.xml -->
-
-
-    <!-- CAFEPNG 1 -->
-
-
-    <!-- drawable/cafepng_1.xml -->
-
-
-    <!-- Rectangle 7 -->
-
-
-    <!-- drawable/rectangle_7.xml -->
-
-
-    <!-- COMIDAPNG 1 -->
-
-
-    <!-- drawable/comidapng_1.xml -->
-
-
-    <!-- Rectangle 10 -->
-
-
-    <!-- drawable/rectangle_1.xml -->
-
-
-    <!-- POSTREPNG 1 -->
-
-
-    <!-- drawable/postrepng_1.xml -->
 
 
 </RelativeLayout>

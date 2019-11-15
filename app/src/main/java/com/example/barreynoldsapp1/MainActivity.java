@@ -1,12 +1,17 @@
 package com.example.barreynoldsapp1;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.os.StrictMode;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.Button;
@@ -17,6 +22,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -49,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
     public void onClickFinal(View view) {
-      guardarComanda();
+        guardarComanda();
     }
     public void guardarComanda() {
         try {
@@ -96,11 +105,60 @@ public class MainActivity extends AppCompatActivity {
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
 
+            if (android.os.Build.VERSION.SDK_INT > 9)
+            {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+            }
+            // Conexion con el servidor
+            Socket socket = null;
+            String host = "192.168.40.184";
+
+            socket = new Socket(host, 4444);
+
+            File file = new File(getFilesDir(),rutaComandaXml);
+            // Get the size of the file
+            byte[] bytes = new byte[16 * 1024];
+            InputStream in = new FileInputStream(file);
+            OutputStream out = socket.getOutputStream();
+
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                out.write(bytes, 0, count);
+            }
+
+            out.close();
+            in.close();
+            socket.close();
+
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public static void buttonEffect(View button){
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xe0f47521, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+        if(button.isFocused()){
+
         }
     }
 
