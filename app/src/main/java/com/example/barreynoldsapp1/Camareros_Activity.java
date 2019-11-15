@@ -21,7 +21,7 @@ public class Camareros_Activity extends AppCompatActivity {
         Empleados e=new Empleados("manolo","bigBoss","pdaManolo");
         Empleados e3=new Empleados("rafa","bigBoss","pdaRafa");
         Empleados e4=new Empleados("gus","bigBoss","pdagus");
-         i=new Intent(this,MainActivity.class);
+         i=new Intent(this,MesasActivity.class);
         CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayEmpleados, this);
         lista = findViewById(R.id.listview5);
         lista.setAdapter(adaptador);
