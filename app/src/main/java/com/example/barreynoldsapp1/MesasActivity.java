@@ -47,6 +47,7 @@ public class MesasActivity extends AppCompatActivity {
 
         listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
+                intent.putExtra("mesaNum",v.getContentDescription());
                 startActivity(intent);
             }
         });

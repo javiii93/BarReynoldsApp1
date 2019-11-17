@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,8 +53,13 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         b1.setText("Mesa "+i);
         b1.setFocusable(false);
         b1.setClickable(false);
+        // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
+        view.setContentDescription(String.valueOf(i));
         i++;
         return view;
+
+    }
+    public void getNumeroMesa(){
 
     }
 

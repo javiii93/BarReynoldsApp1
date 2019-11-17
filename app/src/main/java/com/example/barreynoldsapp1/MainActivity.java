@@ -1,9 +1,10 @@
 package com.example.barreynoldsapp1;
 
 import androidx.annotation.DrawableRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.PorterDuff;
@@ -11,11 +12,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -23,9 +26,13 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeoutException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -42,13 +49,17 @@ import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
 
 public class MainActivity extends AppCompatActivity {
     Button b;
+    Socket socket=new Socket();
     private File file;
     private String rutaComandaXml="comanda.xml";
-
+    String nuevaComanda;
+    String mesaNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mesaNum=getIntent().getExtras().getString("mesaNum");
+        Log.d("------",mesaNum);
     }
 
     public void onClick(View view) {
@@ -62,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void guardarComanda() {
         try {
-            file=new File(getFilesDir(),rutaComandaXml);
+            nuevaComanda=rutaComandaXml.substring(0,rutaComandaXml.length()-4)+mesaNum+".xml";
+            file=new File(getFilesDir(),nuevaComanda);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -111,32 +123,51 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
             // Conexion con el servidor
-            Socket socket = null;
             String host = "192.168.40.184";
 
-            socket = new Socket(host, 4444);
+            // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+            try{
+                InetSocketAddress sockAdr = new InetSocketAddress(host, 4444);
+                socket = new Socket();
+                int timeout = 5000;
+                socket.connect(sockAdr, timeout);
+                if(socket.isConnected()) {
+                    File file = new File(getFilesDir(), rutaComandaXml);
+                    // Get the size of the file
+                    byte[] bytes = new byte[16 * 1024];
+                    InputStream in = new FileInputStream(file);
+                    OutputStream out = socket.getOutputStream();
 
-            File file = new File(getFilesDir(),rutaComandaXml);
-            // Get the size of the file
-            byte[] bytes = new byte[16 * 1024];
-            InputStream in = new FileInputStream(file);
-            OutputStream out = socket.getOutputStream();
+                    int count;
+                    while ((count = in.read(bytes)) > 0) {
+                        out.write(bytes, 0, count);
+                    }
+                    out.close();
+                    in.close();
+                    socket.close();
+                }
 
-            int count;
-            while ((count = in.read(bytes)) > 0) {
-                out.write(bytes, 0, count);
+
+            }catch (SocketTimeoutException e){
+                Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+                try {
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    Log.d("Socket","Socket Closed");
+                }
             }
 
-            out.close();
-            in.close();
-            socket.close();
 
 
-        } catch (ParserConfigurationException e) {
+        }
+
+        catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
     public static void buttonEffect(View button){
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -157,9 +188,30 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        if(button.isFocused()){
+    }
+    public void onBackPressed(){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("Seguro que quieres finalizar la comanda de la mesa "+mesaNum);
+            alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    guardarComanda();
+                    if(socket.isConnected()){
+                        startActivity(new Intent(getApplicationContext(),MesasActivity.class));
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(),"No se pudo conectar con el servidor",Toast.LENGTH_LONG);
+                    }
+                }
+            });
+            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alert.show();
 
-        }
+
     }
 
 }
