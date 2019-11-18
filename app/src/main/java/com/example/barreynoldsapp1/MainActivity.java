@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private String rutaComandaXml="comanda.xml";
     String nuevaComanda;
+    public static String host = "192.168.40.44";
+    public static int port = 4444;
     String mesaNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
             // Conexion con el servidor
-            String host = "192.168.40.184";
+            host = "192.168.40.44";
 
             // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
             try{
-                InetSocketAddress sockAdr = new InetSocketAddress(host, 4444);
+                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
                 socket = new Socket();
                 int timeout = 5000;
                 socket.connect(sockAdr, timeout);
