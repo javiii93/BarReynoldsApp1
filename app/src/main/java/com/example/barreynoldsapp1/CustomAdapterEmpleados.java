@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CustomAdapterEmpleados extends BaseAdapter implements ListAdapter {
-    private ArrayList<Empleados> list = new ArrayList<>();
+    private ArrayList<Cambrer> list = new ArrayList<>();
     private Context context;
 
-    public CustomAdapterEmpleados(ArrayList<Empleados> list, Context context) {
+    public CustomAdapterEmpleados(ArrayList<Cambrer> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -47,7 +47,7 @@ public class CustomAdapterEmpleados extends BaseAdapter implements ListAdapter {
         TextView listItemText = view.findViewById(R.id.list_item_string1);
         listItemText.setText(list.get(position).toString());
         ImageView imageView= view.findViewById(R.id.imageView4);
-        imageView.setImageResource(list.get(position).getImagen());
+        //imageView.setImageResource(list.get(position).getImagen());
         //Handle buttons and add onClickListeners
 
 

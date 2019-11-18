@@ -2,8 +2,8 @@
 
 <config>
 
-	<numeroTaulas>8</numeroTaulas>
+	<numeroTaulas>5</numeroTaulas>
 
-	<ipServer>x.x.x.x</ipServer>
+	<ipServer>192.168.40.44</ipServer>
 
 </config>

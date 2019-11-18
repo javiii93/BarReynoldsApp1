@@ -44,6 +44,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.host;
+import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 import static com.example.barreynoldsapp1.ComandaActivity.arrayComanda;
 
@@ -53,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private String rutaComandaXml="comanda.xml";
     String nuevaComanda;
-    public static String host = "192.168.40.44";
-    public static int port = 4444;
+
     String mesaNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Socket","Socket Closed");
                 }
             }
-
-
 
         }
 

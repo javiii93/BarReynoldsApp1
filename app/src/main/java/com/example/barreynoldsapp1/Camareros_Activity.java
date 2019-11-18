@@ -11,12 +11,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -24,32 +32,45 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.example.barreynoldsapp1.MainActivity.host;
-import static com.example.barreynoldsapp1.MainActivity.port;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-public class Camareros_Activity extends AppCompatActivity implements Conexion {
-    private ArrayList<Empleados> arrayEmpleados = new ArrayList<>();
+
+public class Camareros_Activity extends AppCompatActivity implements Serializable {
+    private ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
     private ListView lista;
     private Intent i;
+    public static String host = "";
+    public static int port = 4444;
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado=null;
+    Document doc;
+    ObjectInputStream in;
 
     Socket socket=new Socket();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camareros);
+        try {
+            getConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
         conexionServidor();
-        Empleados e=new Empleados("manolo","bigBoss","pdaManolo");
-        Empleados e3=new Empleados("rafa","bigBoss","pdaRafa");
-        Empleados e4=new Empleados("gus","bigBoss","pdagus");
+
          i=new Intent(this,MesasActivity.class);
-        CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayEmpleados, this);
+        CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayCamareros, this);
         lista = findViewById(R.id.listview5);
         lista.setAdapter(adaptador);
-        arrayEmpleados.add(e);
-        arrayEmpleados.add(e3);
-        arrayEmpleados.add(e4);
+        //arrayCamareros.get(0);
+
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,31 +92,43 @@ public class Camareros_Activity extends AppCompatActivity implements Conexion {
             int timeout = 5000;
             socket.connect(sockAdr, timeout);
             if(socket.isConnected()) {
-                File file = new File(getFilesDir(), rutaComandaXml);
-                // Get the size of the file
-                byte[] bytes = new byte[16 * 1024];
-                InputStream in = new FileInputStream(file);
-                OutputStream out = socket.getOutputStream();
-                int count;
-                while ((count = in.read(bytes)) > 0) {
-                    out.write(bytes, 0, count);
+                in = new ObjectInputStream(socket.getInputStream());
+                try {
+                    Object ob = in.readObject();
+                    arrayCamareros = (ArrayList<Cambrer>)ob;
+                    System.out.println("--- "+arrayCamareros.toString());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
-                out.close();
                 in.close();
                 socket.close();
             }
         }catch (SocketTimeoutException e){
             Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
             try {
+
                 socket.close();
+
             } catch (IOException ex) {
                 ex.printStackTrace();
                 Log.d("Socket","Socket Closed");
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void getConfig() throws IOException, ParserConfigurationException, SAXException {
+        InputStream istream = getAssets().open("config.xml");
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        doc = dBuilder.parse(istream);
+        // NodeList de la categoria
+        NodeList nl = doc.getElementsByTagName("ipServer");
+        // Element del primer elemento del NodeList
+        Element e2=(Element)nl.item(0);
+        host=e2.getTextContent();
     }
 }
