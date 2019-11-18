@@ -32,12 +32,13 @@ public class Camareros_Activity extends AppCompatActivity implements Conexion {
     private ListView lista;
     private Intent i;
     private String rutaComandaXml="camareros.xml";
+    public static String nombreEmpleado=null;
+
     Socket socket=new Socket();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camareros);
-
         conexionServidor();
         Empleados e=new Empleados("manolo","bigBoss","pdaManolo");
         Empleados e3=new Empleados("rafa","bigBoss","pdaRafa");
@@ -52,7 +53,7 @@ public class Camareros_Activity extends AppCompatActivity implements Conexion {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                nombreEmpleado=parent.getItemAtPosition(position).toString();
                 startActivity(i);
             }
         });
