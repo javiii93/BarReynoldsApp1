@@ -3,11 +3,14 @@ package com.example.barreynoldsapp1;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.Transliterator;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,25 +22,23 @@ import java.util.ArrayList;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    ArrayList<Producto> list = arrayProductos2;
     View view;
     private Context context;
     float historicX = Float.NaN, historicY = Float.NaN;
     static final int DELTA = 50;
     enum Direction {LEFT, RIGHT;}
-    public MyCustomAdapter(ArrayList<Producto> list, Context context) {
-        this.list = arrayProductos2;
+    public MyCustomAdapter(Context context) {
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return arrayProductos2.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return arrayProductos2.get(position);
     }
 
     @Override
@@ -60,13 +61,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         //Handle TextView and display string from your list
         final TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
         //por el casteo a charsequence puede fallar
-        listItemText.setText(list.get(position).toString() );
+        listItemText.setText(arrayProductos2.get(position).toString() );
 
         TextView textView= (TextView) view.findViewById(R.id.textView2);
-        textView.setText(String.valueOf(list.get(position).getCantidad()));
+        textView.setText(String.valueOf(arrayProductos2.get(position).getCantidad()));
 
         ImageView imageView= (ImageView) view.findViewById(R.id.imageView3);
-        imageView.setImageResource(list.get(position).getImagen());
+        imageView.setImageResource(arrayProductos2.get(position).getImagen());
         //imageView.setImageResource(list.get(position).getImagen();
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
@@ -119,20 +120,36 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             Log.d("--- List",arrayProductos2.get(i).getNombre()+"\n"+arrayProductos2.get(i).getCantidad());
         }
     }
+    protected void removeListItem(View rowView, final int positon) {
+
+        final Animation animation = AnimationUtils.loadAnimation(context,android.R.anim.slide_out_right);
+        rowView.startAnimation(animation);
+        Handler handle = new Handler();
+        handle.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //arrayProductos2.remove(positon);
+                animation.cancel();
+            }
+        },1000);
+
+    }
     public void borrarProductos(int pos){
-        if(list.get(pos).getCantidad()==1) {
+        if(arrayProductos2.get(pos).getCantidad()==1) {
             // Animacion Smooth Start
-            list.remove(list.get(pos));
+            arrayProductos2.remove(arrayProductos2.get(pos));
         }
         else {
-            list.get(pos).setCantidad(list.get(pos).getCantidad()-1);
+            arrayProductos2.get(pos).setCantidad(arrayProductos2.get(pos).getCantidad()-1);
         }
 
         // Este hace un refresh de el adapter
+        removeListItem(view,pos);
         MyCustomAdapter.this.notifyDataSetChanged();
     }
     public void añadirProductos(int pos){
-        list.get(pos).setCantidad((list.get(pos).getCantidad()) + 1);
+        arrayProductos2.get(pos).setCantidad((arrayProductos2.get(pos).getCantidad()) + 1);
         MyCustomAdapter.this.notifyDataSetChanged();
     }
 

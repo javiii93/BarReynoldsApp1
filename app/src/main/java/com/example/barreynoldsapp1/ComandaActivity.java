@@ -35,7 +35,7 @@ public class ComandaActivity extends AppCompatActivity {
     Document doc;
     Comanda c = new Comanda();
     int selectedRow;
-    final MyCustomAdapter adaptador = new MyCustomAdapter(arrayProductos2, this);
+    final MyCustomAdapter adaptador = new MyCustomAdapter(this);
 
 
     @SuppressLint("ClickableViewAccessibility")
