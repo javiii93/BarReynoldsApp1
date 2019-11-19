@@ -41,8 +41,10 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     private ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
     private ListView lista;
     private Intent i;
+    int timeout=5000;
     public static String host = "";
-    public static int port = 4444;
+    public static int port = 4445;
+    InetSocketAddress sockAdr;
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado=null;
     Document doc;
@@ -87,9 +89,8 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         }
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
         try{
-            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+            sockAdr = new InetSocketAddress(host, port);
             socket = new Socket();
-            int timeout = 5000;
             socket.connect(sockAdr, timeout);
             if(socket.isConnected()) {
                 in = new ObjectInputStream(socket.getInputStream());
@@ -108,6 +109,8 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             try {
 
                 socket.close();
+                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+                socket = new Socket();
 
             } catch (IOException ex) {
                 ex.printStackTrace();

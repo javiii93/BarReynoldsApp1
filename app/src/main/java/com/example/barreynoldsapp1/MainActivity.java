@@ -144,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
             // Conexion con el servidor
-            host = "192.168.40.44";
-
+            port=4444;
             // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
             try{
                 InetSocketAddress sockAdr = new InetSocketAddress(host, port);
