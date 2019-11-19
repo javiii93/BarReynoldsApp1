@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -70,7 +71,48 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onClickFinal(View view) {
         guardarComandaFinalizado();
+        conexionServidor();
     }
+
+    public void conexionServidor() {
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            port = 4444;
+            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                File file = new File(getFilesDir(), nuevaComanda);
+                // Get the size of the file
+                byte[] bytes = new byte[16 * 1024];
+                InputStream in = new FileInputStream(file);
+                OutputStream out = socket.getOutputStream();
+
+                int count;
+                while ((count = in.read(bytes)) > 0) {
+                    out.write(bytes, 0, count);
+                }
+                out.close();
+                in.close();
+                socket.close();
+            }
+
+
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void guardarComandaFinalizado() {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -113,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 eCantidad.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getCantidad())));
                 eProducto.appendChild(eCantidad);
             }
-            Element eCamarero = doc.createElement("camarero");
+           /* Element eCamarero = doc.createElement("camarero");
             eCamarero.appendChild(doc.createElement(nombreEmpleado));
             eRaiz.appendChild(eCamarero);
-         /*   Attr attr = doc.createAttribute("id");
+            Attr attr = doc.createAttribute("id");
             attr.setValue(String.valueOf(e.getId()));
-            eCamarero.setAttributeNode(attr);*/
+            eCamarero.setAttributeNode(attr);
 
             Element eMesa = doc.createElement("mesa");
             eMesa.appendChild(doc.createTextNode(mesaNum));
@@ -130,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
             Element eFin = doc.createElement("fin");
             eFin.appendChild(doc.createTextNode("2"));
-            eRaiz.appendChild(eFin);
+            eRaiz.appendChild(eFin);*/
 
             // clases necesarias finalizar la creación del archivo XML
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -144,45 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
-            // Conexion con el servidor
-            port=4444;
-            // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
-            try{
-                port = 4444;
-                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
-                socket = new Socket();
-                socket.connect(sockAdr, timeout);
-                if(socket.isConnected()) {
-                    File file = new File(getFilesDir(), rutaComandaXml);
-                    // Get the size of the file
-                    byte[] bytes = new byte[16 * 1024];
-                    InputStream in = new FileInputStream(file);
-                    OutputStream out = socket.getOutputStream();
-
-                    int count;
-                    while ((count = in.read(bytes)) > 0) {
-                        out.write(bytes, 0, count);
-                    }
-                    out.close();
-                    in.close();
-                    socket.close();
-                }
-
-
-            }catch (SocketTimeoutException e){
-                Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
-                try {
-                    socket.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    Log.d("Socket","Socket Closed");
-                }
-            }
-
-
-
         }
-
         catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -261,41 +265,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-            }
-            // Conexion con el servidor
-            host = "192.168.40.44";
-
-            // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
-            try{
-                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
-                socket = new Socket();
-                int timeout = 5000;
-                socket.connect(sockAdr, timeout);
-                if(socket.isConnected()) {
-                    File file = new File(getFilesDir(), rutaComandaXml);
-                    // Get the size of the file
-                    byte[] bytes = new byte[16 * 1024];
-                    InputStream in = new FileInputStream(file);
-                    OutputStream out = socket.getOutputStream();
-
-                    int count;
-                    while ((count = in.read(bytes)) > 0) {
-                        out.write(bytes, 0, count);
-                    }
-                    out.close();
-                    in.close();
-                    socket.close();
-                }
-
-
-            }catch (SocketTimeoutException e){
-                Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
-                try {
-                    socket.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    Log.d("Socket","Socket Closed");
-                }
             }
 
         }
