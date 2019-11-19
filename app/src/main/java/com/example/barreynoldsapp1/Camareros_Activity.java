@@ -64,9 +64,11 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         } catch (SAXException e) {
             e.printStackTrace();
         }
+        // *--------------------------*
         // uso local / frente server
-        arrayCamareros.add(new Cambrer(1,"Pepe"));
-        //conexionServidor();
+        //arrayCamareros.add(new Cambrer(1,"Pepe"));
+        conexionServidor();
+        // *--------------------------*
 
          i=new Intent(this,MesasActivity.class);
         CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayCamareros, this);

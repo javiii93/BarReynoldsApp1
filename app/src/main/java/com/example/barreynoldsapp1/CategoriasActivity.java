@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,13 +39,15 @@ public class CategoriasActivity extends AppCompatActivity {
     Document doc;
     Producto p1;
     boolean cambiado=false;
+    static boolean created;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
-        Collections.sort(arrayProductos2);
+        created=true;
 
+        Collections.sort(arrayProductos2);
         i = new Intent(this, ComandaActivity.class);
         categoria = getIntent().getStringExtra("categoria");
         resources = getResources();
@@ -85,6 +86,15 @@ public class CategoriasActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(created==false){
+            overridePendingTransition(R.anim.slide_out_2, R.anim.slide_in_2);
+        }
+
+    }
+
     public void recuperarProductos() {
         try {
             System.out.println(categoria);
@@ -120,11 +130,7 @@ public class CategoriasActivity extends AppCompatActivity {
         }
 
     }
-    public void pasarProductosAComanda(ArrayList<Producto> p) {
-        i.putExtra("sampleObject", p);
-    }
     public void onClick(View view) {
-        pasarProductosAComanda(arrayProductos2);
         startActivity(i);
     }
 
