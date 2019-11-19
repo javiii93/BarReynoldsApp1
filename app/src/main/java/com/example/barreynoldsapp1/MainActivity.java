@@ -155,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 eCantidad.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getCantidad())));
                 eProducto.appendChild(eCantidad);
             }
-           /* Element eCamarero = doc.createElement("camarero");
-            eCamarero.appendChild(doc.createElement(nombreEmpleado));
+            Element eCamarero = doc.createElement("camarero");
+            eCamarero.appendChild(doc.createTextNode(nombreEmpleado));
             eRaiz.appendChild(eCamarero);
-            Attr attr = doc.createAttribute("id");
+           /* Attr attr = doc.createAttribute("id");
             attr.setValue(String.valueOf(e.getId()));
-            eCamarero.setAttributeNode(attr);
+            eCamarero.setAttributeNode(attr);*/
 
             Element eMesa = doc.createElement("mesa");
             eMesa.appendChild(doc.createTextNode(mesaNum));
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
             Element eFin = doc.createElement("fin");
             eFin.appendChild(doc.createTextNode("2"));
-            eRaiz.appendChild(eFin);*/
+            eRaiz.appendChild(eFin);
 
             // clases necesarias finalizar la creación del archivo XML
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
