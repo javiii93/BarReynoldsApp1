@@ -42,6 +42,7 @@ import javax.xml.transform.stream.StreamResult;
 import static com.example.barreynoldsapp1.Camareros_Activity.nombreEmpleado;
 import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 
@@ -147,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
             port=4444;
             // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
             try{
+                port = 4444;
                 InetSocketAddress sockAdr = new InetSocketAddress(host, port);
                 socket = new Socket();
-                int timeout = 5000;
                 socket.connect(sockAdr, timeout);
                 if(socket.isConnected()) {
                     File file = new File(getFilesDir(), rutaComandaXml);

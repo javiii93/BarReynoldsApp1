@@ -2,8 +2,10 @@ package com.example.barreynoldsapp1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.Transliterator;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,6 +22,9 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
     ArrayList<Producto> list = arrayProductos2;
     View view;
     private Context context;
+    float historicX = Float.NaN, historicY = Float.NaN;
+    static final int DELTA = 50;
+    enum Direction {LEFT, RIGHT;}
     public MyCustomAdapter(ArrayList<Producto> list, Context context) {
         this.list = arrayProductos2;
         this.context = context;
@@ -69,28 +74,44 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(list.get(pos).getCantidad()==1) {
-                    // Animacion Smooth Start
-                    list.remove(list.get(pos));
-                }
-                else {
-                    list.get(pos).setCantidad(list.get(pos).getCantidad()-1);
-                }
-
-                // Este hace un refresh de el adapter
-                MyCustomAdapter.this.notifyDataSetChanged();
-                imprimirProductos();
-
+                borrarProductos(pos);
             }
         });
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.get(pos).setCantidad((list.get(pos).getCantidad()) + 1);
-                MyCustomAdapter.this.notifyDataSetChanged();
-                imprimirProductos();
+                añadirProductos(pos);
             }
         });
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            añadirProductos(pos);
+                            return true;
+                        }
+                        else if (event.getX() - historicX > DELTA) {
+                            borrarProductos(pos);
+                            return true;
+                        }
+                        break;
+
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
+
         return view;
     }
     public static void imprimirProductos(){
@@ -98,6 +119,21 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             Log.d("--- List",arrayProductos2.get(i).getNombre()+"\n"+arrayProductos2.get(i).getCantidad());
         }
     }
+    public void borrarProductos(int pos){
+        if(list.get(pos).getCantidad()==1) {
+            // Animacion Smooth Start
+            list.remove(list.get(pos));
+        }
+        else {
+            list.get(pos).setCantidad(list.get(pos).getCantidad()-1);
+        }
 
+        // Este hace un refresh de el adapter
+        MyCustomAdapter.this.notifyDataSetChanged();
+    }
+    public void añadirProductos(int pos){
+        list.get(pos).setCantidad((list.get(pos).getCantidad()) + 1);
+        MyCustomAdapter.this.notifyDataSetChanged();
+    }
 
 }

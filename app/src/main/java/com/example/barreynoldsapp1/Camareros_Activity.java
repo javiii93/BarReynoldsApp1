@@ -41,7 +41,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     private ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
     private ListView lista;
     private Intent i;
-    int timeout=5000;
+    public static int timeout=5000;
     public static String host = "";
     public static int port = 4445;
     InetSocketAddress sockAdr;

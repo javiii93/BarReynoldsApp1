@@ -59,4 +59,5 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
 
     }
 
+
 }
