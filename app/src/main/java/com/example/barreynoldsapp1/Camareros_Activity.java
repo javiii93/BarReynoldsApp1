@@ -42,7 +42,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     private ListView lista;
     private Intent i;
     public static String host = "";
-    public static int port = 4444;
+    public static int port = 4445;
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado=null;
     Document doc;
