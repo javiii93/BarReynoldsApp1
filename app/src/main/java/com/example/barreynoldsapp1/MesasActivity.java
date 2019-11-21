@@ -42,7 +42,8 @@ public class MesasActivity extends AppCompatActivity {
         b1=findViewById(R.id.buttonMesa);
         listViewMesas.setDivider(null);
         listViewMesas.setDividerHeight(0);
-        intent=new Intent(this,MainActivity.class);
+        //intent=new Intent(this,MainActivity.class);
+        intent=new Intent(this,GridCategorias.class);
 
 
         listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
