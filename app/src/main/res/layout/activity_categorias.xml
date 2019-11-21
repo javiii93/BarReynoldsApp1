@@ -9,13 +9,14 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="411dp"
-        android:layout_height="505dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="407dp"
+        android:layout_height="559dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/imageButton"

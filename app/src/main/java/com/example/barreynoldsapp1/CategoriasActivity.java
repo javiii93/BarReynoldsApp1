@@ -7,21 +7,36 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import static com.example.barreynoldsapp1.Camareros_Activity.host;
+import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.sockAdr;
+import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 
 
 public class CategoriasActivity extends AppCompatActivity {
@@ -40,6 +55,10 @@ public class CategoriasActivity extends AppCompatActivity {
     Producto p1;
     boolean cambiado=false;
     static boolean created;
+    ObjectInputStream in;
+    ObjectOutputStream out;
+    Socket socket=new Socket();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +73,7 @@ public class CategoriasActivity extends AppCompatActivity {
         // Instanciamos objetos Clase R
         lista = findViewById(R.id.listView);
         //Lee XML e introduce productos en arrayProductos para mostrarlos
-        recuperarProductos();
+        recuperarProductosXML();
         adaptador = new MyCustomAdapter2(arrayProductos, this);
 
         lista.setAdapter(adaptador);
@@ -95,7 +114,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
     }
 
-    public void recuperarProductos() {
+    public void recuperarProductosXML() {
         try {
             System.out.println(categoria);
             InputStream istream = getAssets().open("productes.xml");
@@ -129,6 +148,62 @@ public class CategoriasActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    public void recuperarProductosServer(){
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            sockAdr = new InetSocketAddress(host, port);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                out = new ObjectOutputStream(socket.getOutputStream());
+                in = new ObjectInputStream(socket.getInputStream());
+
+                byte[] bytes = new byte[16 * 1024];
+                bytes=categoria.getBytes();
+                int count;
+                while ((count = in.read(bytes)) > 0) {
+                    out.write(bytes, 0, count);
+                }
+                out.close();
+                socket.close();
+
+                socket=new Socket();
+                socket.connect(sockAdr, timeout);
+                in = new ObjectInputStream(socket.getInputStream());
+                try {
+                    Object ob = in.readObject();
+                    arrayProductos = (ArrayList<Producto>)ob;
+                    System.out.println("--- "+arrayProductos.toString());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                in.close();
+                socket.close();
+            }
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            try {
+
+                socket.close();
+                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+                socket = new Socket();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void onClick(View view) {
         startActivity(i);

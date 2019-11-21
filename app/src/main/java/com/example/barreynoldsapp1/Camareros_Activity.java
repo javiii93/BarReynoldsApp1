@@ -44,13 +44,13 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     public static int timeout=5000;
     public static String host = "";
     public static int port = 4445;
-    InetSocketAddress sockAdr;
+    public static InetSocketAddress sockAdr;
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado=null;
     Document doc;
     ObjectInputStream in;
-
     Socket socket=new Socket();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +66,8 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         }
         // *--------------------------*
         // uso local / frente server
-        //arrayCamareros.add(new Cambrer(1,"Pepe"));
-        conexionServidor();
+        arrayCamareros.add(new Cambrer(1,"Pepe"));
+        //conexionServidor();
         // *--------------------------*
 
          i=new Intent(this,MesasActivity.class);

@@ -1,4 +1,4 @@
-package com.example.barreynoldsapp1;
+/*package com.example.barreynoldsapp1;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -38,7 +38,7 @@ public class ComandasAdapter extends RecyclerView.Adapter<ComandasAdapter.MyView
                                                      int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+                .inflate(R.layout.single_list_item, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -59,6 +59,6 @@ public class ComandasAdapter extends RecyclerView.Adapter<ComandasAdapter.MyView
     }
 }
 
-
+*/
 
 
