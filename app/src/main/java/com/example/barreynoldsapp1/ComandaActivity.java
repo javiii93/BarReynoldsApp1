@@ -20,6 +20,8 @@ import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.example.barreynoldsapp1.CategoriasActivity.created;
 import static com.example.barreynoldsapp1.MyCustomAdapter.imprimirProductos;
 
 
@@ -31,7 +33,7 @@ public class ComandaActivity extends AppCompatActivity {
     Document doc;
     Comanda c = new Comanda();
     int selectedRow;
-    final MyCustomAdapter adaptador = new MyCustomAdapter(arrayProductos2, this);
+    final MyCustomAdapter adaptador = new MyCustomAdapter(this);
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -39,6 +41,8 @@ public class ComandaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         Collections.sort(arrayProductos2);
         deleteBtn=(Button)findViewById(R.id.delete_btn);
         addBtn=(Button)findViewById(R.id.add_btn);
@@ -49,7 +53,7 @@ public class ComandaActivity extends AppCompatActivity {
         // Muestra array de productos por consola
         imprimirProductos();
         // Recoge los productos de CategoriasActivity los añade a arrayComanda
-        recuperarObjeto();
+        Collections.sort(arrayProductos2);
 
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,6 +64,13 @@ public class ComandaActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        created=false;
+        super.onBackPressed();
+    }
+
     protected void removeListItem(View rowView, final int positon) {
 
         final Animation animation = AnimationUtils.loadAnimation(this,android.R.anim.slide_out_right);
@@ -75,19 +86,5 @@ public class ComandaActivity extends AppCompatActivity {
             }
         },1000);
 
-    }
-
-
-    public void recuperarObjeto() {
-        ArrayList<Producto> p = (ArrayList<Producto>) getIntent().getSerializableExtra("sampleObject");
-        Collections.sort(p);
-
-        for(int i=0;i<p.size();i++){
-            c.setProducto(p.get(i));
-            c.setCantidad(p.get(i).getCantidad());
-            c.setImagen(p.get(i).getImagen());
-
-            Collections.sort(arrayProductos2);
-        }
     }
 }

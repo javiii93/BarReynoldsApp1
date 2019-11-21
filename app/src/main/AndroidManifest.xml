@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MesasActivity"></activity>
+        <activity android:name=".PrincipalActivity"></activity>
+        <activity android:name=".MesasActivity" />
         <activity android:name=".Camareros_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,7 @@
         </activity>
         <activity android:name=".CategoriasActivity" />
         <activity android:name=".ComandaActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
