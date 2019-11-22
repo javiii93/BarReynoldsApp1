@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".GridCategorias"></activity>
+        <activity android:name=".MainGrid"></activity>
+        <activity android:name=".GridCategorias" />
         <activity android:name=".MesasActivity" />
         <activity android:name=".Camareros_Activity" />
         <activity

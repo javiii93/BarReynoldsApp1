@@ -44,12 +44,15 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     public static int timeout=5000;
     public static String host = "";
     public static int port = 4445;
+
+    public static int numMesas;
+    public static ArrayList<String>categorias;
+    public static Socket socket=new Socket();
     public static InetSocketAddress sockAdr;
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado=null;
     Document doc;
     ObjectInputStream in;
-    Socket socket=new Socket();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,14 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
                     Object ob = in.readObject();
                     arrayCamareros = (ArrayList<Cambrer>)ob;
                     System.out.println("--- "+arrayCamareros.toString());
+                    numMesas=(int) in.readObject();
+                    categorias=(ArrayList<String>)in.readObject();
+                /*for(int i=0;i<categorias.size();i++){
+                    System.out.println("--- "+categorias.get(i));
+                }*/
+                    //  System.out.println("---+------------------- "+numMesas);
+
+
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -126,6 +137,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             e.printStackTrace();
         }
     }
+
     public void getConfig() throws IOException, ParserConfigurationException, SAXException {
         InputStream istream = getAssets().open("config.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

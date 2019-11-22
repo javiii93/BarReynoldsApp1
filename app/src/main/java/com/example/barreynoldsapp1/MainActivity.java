@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,12 +25,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -45,6 +49,8 @@ import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
+import static com.example.barreynoldsapp1.GridCategorias.arrayCategorias;
+import static com.example.barreynoldsapp1.MainGrid.categoria;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -53,14 +59,45 @@ public class MainActivity extends AppCompatActivity {
     private File file;
     private String rutaComandaXml="comanda.xml";
     String nuevaComanda;
-
+    ObjectInputStream in;
+    ObjectOutputStream out;
     String mesaNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_grid);
+        //setContentView(R.layout.activity_main);
+
+        ListView listViewCategorias = findViewById(R.id.listViewCategorias);
         mesaNum=getIntent().getExtras().getString("mesaNum");
         Log.d("------",mesaNum);
+
+        //crearConexion();
+        CrearConexion.conexion();
+        pasarCategoriaClickada();
+        arrayCategorias.add(new Categoria("platos calientes papi",22));
+
+        MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
+        listViewCategorias.setAdapter(adaptador);
+    }
+
+    public void pasarCategoriaClickada() {
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+            byte[] bytes = new byte[16 * 1024];
+            bytes=categoria.getBytes();
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                out.write(bytes, 0, count);
+            }
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void onClick(View view) {

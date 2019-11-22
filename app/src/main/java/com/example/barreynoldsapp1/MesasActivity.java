@@ -26,9 +26,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
+
 public class MesasActivity extends AppCompatActivity {
     Document doc;
-    int numeroMesas;
     ListView listViewMesas;
     ArrayList<Button>arrayMesas=new ArrayList<>();
     Intent intent;
@@ -42,8 +43,9 @@ public class MesasActivity extends AppCompatActivity {
         b1=findViewById(R.id.buttonMesa);
         listViewMesas.setDivider(null);
         listViewMesas.setDividerHeight(0);
-        //intent=new Intent(this,MainActivity.class);
-        intent=new Intent(this,GridCategorias.class);
+        intent=new Intent(this,MainActivity.class);
+        //intent=new Intent(this,MainGrid.class);
+        //intent=new Intent(this,GridCategorias.class);
 
 
         listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,17 +54,8 @@ public class MesasActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        try {
-            numeroMesas=recuperarMesas();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
 
-        for(int i=0;i<numeroMesas;i++){
+        for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
         }
 
@@ -70,14 +63,6 @@ public class MesasActivity extends AppCompatActivity {
         listViewMesas.setAdapter(adaptador);
 
     }
-    public Integer recuperarMesas() throws IOException, ParserConfigurationException, SAXException {
-        InputStream istream = getAssets().open("config.xml");
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        doc = dBuilder.parse(istream);
-        NodeList nl = doc.getElementsByTagName("numeroTaulas");
-        Element e1=(Element)nl.item(0);
-        return Integer.valueOf(e1.getTextContent());
-    }
+
 
 }

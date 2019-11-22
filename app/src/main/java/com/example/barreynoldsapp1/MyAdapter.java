@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static com.example.barreynoldsapp1.GridCategorias.arrayCategorias;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ArrayList<Categoria>[] arrayCategorias;
+
+
+    public MyAdapter(ArrayList<Categoria> arrayCategorias, GridCategorias gridCategorias) {
+    }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -24,7 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            button = itemView.findViewById(R.id.imageButton);
+            //button = itemView.findViewById(R.id.imageButton);
         }
     }
 
@@ -41,8 +46,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                                                      int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
+        inflater.inflate(R.layout.custom_recyclerview_categoria,parent,false);
 
-       View boton =inflater.inflate(R.layout.recycler_view_items,parent,false);
+       View boton =inflater.inflate(R.layout.custom_recyclerview_categoria,parent,false);
 
         ViewHolder viewHolder = new ViewHolder(boton);
         //viewHolder.c = context;
@@ -62,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return arrayCategorias.length;
+        return arrayCategorias.size();
     }
 
 }
