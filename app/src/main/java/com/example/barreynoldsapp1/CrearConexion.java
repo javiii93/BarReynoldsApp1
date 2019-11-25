@@ -27,7 +27,6 @@ public class CrearConexion {
             StrictMode.setThreadPolicy(policy);
         }
         try{
-            port = 4444;
             InetSocketAddress sockAdr = new InetSocketAddress(host, port);
             socket.connect(sockAdr, timeout);
         }

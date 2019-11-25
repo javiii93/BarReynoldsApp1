@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+
 public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
     private ArrayList<Button> list = new ArrayList<>();
     private Context context;
@@ -50,6 +52,8 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         }
 
         Button b1 = view.findViewById(R.id.buttonMesa);
+        arrayCategorias.add(new Categoria("platos calientes papi",22,111));
+
         b1.setText("Mesa "+i);
         b1.setFocusable(false);
         b1.setClickable(false);

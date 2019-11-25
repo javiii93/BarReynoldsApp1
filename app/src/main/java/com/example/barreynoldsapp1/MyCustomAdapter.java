@@ -1,12 +1,9 @@
 package com.example.barreynoldsapp1;
 
 import android.content.Context;
-import android.content.Intent;
-import android.icu.text.Transliterator;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -16,8 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
@@ -81,7 +76,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             }
         });
         // Boton añadir
-        Button addBtn = (Button) view.findViewById(R.id.add_btn);
+        Button addBtn = (Button) view.findViewById(R.id.botonCategoria);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

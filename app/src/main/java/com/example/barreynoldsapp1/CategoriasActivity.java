@@ -73,7 +73,7 @@ public class CategoriasActivity extends AppCompatActivity {
         // Instanciamos objetos Clase R
         lista = findViewById(R.id.listView);
         //Lee XML e introduce productos en arrayProductos para mostrarlos
-        recuperarProductosXML();
+        //recuperarProductosXML();
         adaptador = new MyCustomAdapter2(arrayProductos, this);
 
         lista.setAdapter(adaptador);
@@ -111,10 +111,9 @@ public class CategoriasActivity extends AppCompatActivity {
         if(created==false){
             overridePendingTransition(R.anim.slide_out_2, R.anim.slide_in_2);
         }
-
     }
 
-    public void recuperarProductosXML() {
+    /*public void recuperarProductosXML() {
         try {
             System.out.println(categoria);
             InputStream istream = getAssets().open("productes.xml");
@@ -148,7 +147,7 @@ public class CategoriasActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
+    }*/
     public void recuperarProductosServer(){
         if (android.os.Build.VERSION.SDK_INT > 9)
         {

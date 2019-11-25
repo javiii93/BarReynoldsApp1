@@ -47,14 +47,14 @@ public class MesasActivity extends AppCompatActivity {
         //intent=new Intent(this,MainGrid.class);
         //intent=new Intent(this,GridCategorias.class);
 
-
         listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
                 intent.putExtra("mesaNum",v.getContentDescription());
                 startActivity(intent);
             }
         });
-
+        // Prueba local
+        numMesas=5;
         for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
         }

@@ -44,9 +44,10 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     public static int timeout=5000;
     public static String host = "";
     public static int port = 4445;
-
+    String uri;
     public static int numMesas;
     public static ArrayList<String>categorias;
+    public static ArrayList<Categoria> arrayCategorias=new ArrayList<>();
     public static Socket socket=new Socket();
     public static InetSocketAddress sockAdr;
     private String rutaComandaXml="camareros.xml";
@@ -60,6 +61,31 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_camareros);
         try {
             getConfig();
+            // *--------------------------*
+            // uso local / frente server
+            //arrayCamareros.add(new Cambrer(1,"Pepe","password"));
+            //arrayCategorias.add(new Categoria("platos calientes papi",22,drawableResourceId));
+
+            conexionServidor();
+            // *--------------------------*
+            uri = "bebidalol_1.png";
+            int drawableResourceId = this.getResources().getIdentifier(uri, "drawable", this.getPackageName());
+            for (int i=0;i<categorias.size();i++){
+                arrayCategorias.add(new Categoria(categorias.get(i),11,drawableResourceId));
+            }
+            i=new Intent(this,MesasActivity.class);
+            CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayCamareros, this);
+            lista = findViewById(R.id.listview5);
+            lista.setAdapter(adaptador);
+            //arrayCamareros.get(0);
+
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    nombreEmpleado=parent.getItemAtPosition(position).toString();
+                    startActivity(i);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -67,25 +93,6 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        // *--------------------------*
-        // uso local / frente server
-        arrayCamareros.add(new Cambrer(1,"Pepe"));
-        //conexionServidor();
-        // *--------------------------*
-
-         i=new Intent(this,MesasActivity.class);
-        CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayCamareros, this);
-        lista = findViewById(R.id.listview5);
-        lista.setAdapter(adaptador);
-        //arrayCamareros.get(0);
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                nombreEmpleado=parent.getItemAtPosition(position).toString();
-                startActivity(i);
-            }
-        });
     }
     public void conexionServidor(){
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -106,11 +113,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
                     System.out.println("--- "+arrayCamareros.toString());
                     numMesas=(int) in.readObject();
                     categorias=(ArrayList<String>)in.readObject();
-                /*for(int i=0;i<categorias.size();i++){
-                    System.out.println("--- "+categorias.get(i));
-                }*/
-                    //  System.out.println("---+------------------- "+numMesas);
-
+                    System.out.println(categorias.toString());
 
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

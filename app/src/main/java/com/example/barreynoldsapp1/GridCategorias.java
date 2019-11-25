@@ -1,4 +1,4 @@
-package com.example.barreynoldsapp1;
+/*package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,11 +15,11 @@ public class GridCategorias extends AppCompatActivity {
     Button boton;
     RecyclerView categoriasRecyclerView;
     MyAdapter adapter;
-    public static ArrayList<Categoria> arrayCategorias=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_categorias);
         setContentView(R.layout.activity_grid_categorias);
         categoriasRecyclerView = findViewById(R.id.recycler_view1);
         boton = findViewById(R.id.botonCategoria);
@@ -29,10 +29,11 @@ public class GridCategorias extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
         mAdapter = new MyAdapter(myDataset);
-        rv.setAdapter(mAdapter);*/
+        rv.setAdapter(mAdapter);
         arrayCategorias.add(new Categoria("Begudes",1));
 
         MyAdapter adaptador= new MyAdapter(arrayCategorias,this);
         categoriasRecyclerView.setAdapter(adaptador);
     }
 }
+*/

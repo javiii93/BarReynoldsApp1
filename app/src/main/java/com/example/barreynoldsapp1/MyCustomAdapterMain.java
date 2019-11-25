@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+
 
 import java.util.ArrayList;
 
 public class MyCustomAdapterMain  extends BaseAdapter implements ListAdapter {
-    private ArrayList<Categoria> list = new ArrayList<>();
     private Context context;
+    public ArrayList<Categoria>list;
 
     public MyCustomAdapterMain(ArrayList<Categoria> list, Context context) {
-        this.list = list;
+        this.list = arrayCategorias;
         this.context = context;
     }
 
@@ -41,15 +44,18 @@ public class MyCustomAdapterMain  extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.layout_adapter_mesas, null);
+            view = inflater.inflate(R.layout.layout_adapter_main, null);
         }
 
-        Button b1 = view.findViewById(R.id.buttonMesa);
-        b1.setText("get Categoria Name");
+        ImageButton b1 = view.findViewById(R.id.botonCategoria);
+        //b1.setText(arrayCategorias.get(pos).getNombre());
+        b1.setImageResource(R.drawable.bebidalol_1);
+        //b1.set
         b1.setFocusable(false);
-        b1.setClickable(false);
+
+        //b1.setClickable(false);
         // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
-        view.setContentDescription(String.valueOf("prueba"));
+        view.setContentDescription(arrayCategorias.get(pos).getNombre());
         return view;
     }
 }

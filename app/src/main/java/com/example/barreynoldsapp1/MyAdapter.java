@@ -1,4 +1,4 @@
-package com.example.barreynoldsapp1;
+/*package com.example.barreynoldsapp1;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -71,4 +71,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return arrayCategorias.size();
     }
 
-}
+}*/
