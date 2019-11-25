@@ -26,6 +26,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
 import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
 
 public class MesasActivity extends AppCompatActivity {
@@ -62,7 +63,15 @@ public class MesasActivity extends AppCompatActivity {
         MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
         listViewMesas.setAdapter(adaptador);
 
+
+
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        intent = new Intent(getApplicationContext(),Camareros_Activity.class);
+        arrayCategorias=new ArrayList<Categoria>();
+        startActivity(intent);
+    }
 }

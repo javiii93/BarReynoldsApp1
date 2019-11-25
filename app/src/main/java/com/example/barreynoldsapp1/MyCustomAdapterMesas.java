@@ -52,7 +52,6 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         }
 
         Button b1 = view.findViewById(R.id.buttonMesa);
-        arrayCategorias.add(new Categoria("platos calientes papi",22,111));
 
         b1.setText("Mesa "+i);
         b1.setFocusable(false);

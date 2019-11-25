@@ -2,6 +2,7 @@ package com.example.barreynoldsapp1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -59,8 +60,17 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camareros);
-        try {
+        try{
             getConfig();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+
             // *--------------------------*
             // uso local / frente server
             //arrayCamareros.add(new Cambrer(1,"Pepe","password"));
@@ -74,23 +84,22 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
                 arrayCategorias.add(new Categoria(categorias.get(i),11,drawableResourceId));
             }
             i=new Intent(this,MesasActivity.class);
+
             CustomAdapterEmpleados adaptador = new CustomAdapterEmpleados(arrayCamareros, this);
             lista = findViewById(R.id.listview5);
             lista.setAdapter(adaptador);
-            //arrayCamareros.get(0);
 
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     nombreEmpleado=parent.getItemAtPosition(position).toString();
+                    nombreEmpleado=nombreEmpleado.toLowerCase().replaceAll("[\\d]","");
+                    Log.d("camarero seleccionado",nombreEmpleado);
+                    i.putExtra("camarero",nombreEmpleado);
                     startActivity(i);
                 }
             });
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -123,6 +132,9 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             }
         }catch (SocketTimeoutException e){
             Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            /*Intent intent = new Intent(this,PrincipalActivity.class);
+            finish();
+            startActivity(intent);*/
             try {
 
                 socket.close();

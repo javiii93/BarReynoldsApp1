@@ -42,12 +42,21 @@ public class CustomAdapterEmpleados extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.layout_customadapterempleados, null);
         }
-
+        ImageView imageView = view.findViewById(R.id.imageView4) ;
         //Handle TextView and display string from your list
         TextView listItemText = view.findViewById(R.id.list_item_string1);
         listItemText.setText(list.get(position).toString());
-        ImageView imageView= view.findViewById(R.id.imageView4);
-        //imageView.setImageResource(list.get(position).getImagen());
+        if(list.get(position).toString().toLowerCase().contains("sergio")){
+            imageView.setImageResource(R.drawable.sbereno);
+        }
+        else if(list.get(position).toString().toLowerCase().contains("javi")){
+            imageView.setImageResource(R.drawable.jlinde);
+        }
+        else if(list.get(position).toString().toLowerCase().contains("adri")){
+            imageView.setImageResource(R.drawable.agonzalez);
+        }
+
+
         //Handle buttons and add onClickListeners
 
 

@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -63,32 +64,35 @@ public class MainActivity extends AppCompatActivity {
     ObjectInputStream in;
     ObjectOutputStream out;
     String uri;
-    ListView listViewCategrias;
+    String mesaNum;
+    //ListView listViewCategorias;
+    GridView gridFiends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_grid);
-        listViewCategrias=findViewById(R.id.listViewCategorias);
         //setContentView(R.layout.activity_main);
-        listViewCategrias.setDivider(null);
-        listViewCategrias.setDividerHeight(0);
-        ListView listViewCategorias = findViewById(R.id.listViewCategorias);
-
+        mesaNum=getIntent().getStringExtra("mesaNum");
+        setContentView(R.layout.activity_main_grid);
+        //listViewCategorias=findViewById(R.id.listViewCategorias);
+        gridFiends=findViewById(R.id.gridFriends);
+        //listViewCategorias.setDivider(null);
+        //listViewCategorias.setDividerHeight(0);
+        nombreEmpleado=getIntent().getExtras().toString();
+        System.out.println("-------"+nombreEmpleado);
         //CrearConexion.conexion();
-
+        for(int i=0;i<arrayCategorias.size();i++) {
+            Log.d("....", arrayCategorias.get(i).getNombre());
+        }
         MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
-        listViewCategorias.setAdapter(adaptador);
+        //listViewCategorias.setAdapter(adaptador);
+        gridFiends.setAdapter(adaptador);
     }
 
     public void onClick(View view) {
-        buttonEffect(view);
-        Intent i = new Intent(this, CategoriasActivity.class);
         b = new Button(view.getContext());
+        buttonEffect(b);
+        Intent i = new Intent(this, CategoriasActivity.class);
         startActivity(i);
-    }
-    public void onClickFinal(View view) {
-        //guardarComandaFinalizado();
-        conexionServidor();
     }
 
     public void conexionServidor() {
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            nuevaComanda=rutaComandaXml.substring(0,rutaComandaXml.length()-4)+numMesas+".xml";
+            nuevaComanda=rutaComandaXml.substring(0,rutaComandaXml.length()-4)+mesaNum+".xml";
             file=new File(getFilesDir(),nuevaComanda);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -174,14 +178,14 @@ public class MainActivity extends AppCompatActivity {
                 eProducto.appendChild(eCantidad);
             }
             Element eCamarero = doc.createElement("camarero");
-            eCamarero.appendChild(doc.createElement(nombreEmpleado));
+            eCamarero.appendChild(doc.createTextNode(nombreEmpleado));
             eRaiz.appendChild(eCamarero);
          /*   Attr attr = doc.createAttribute("id");
             attr.setValue(String.valueOf(e.getId()));
             eCamarero.setAttributeNode(attr);*/
 
             Element eMesa = doc.createElement("mesa");
-            eMesa.appendChild(doc.createTextNode(String.valueOf(numMesas)));
+            eMesa.appendChild(doc.createTextNode(String.valueOf(mesaNum)));
             eRaiz.appendChild(eMesa);
 
             Element eFechaHora = doc.createElement("fecha");
@@ -214,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public static void buttonEffect(View button){
-        button.setOnTouchListener(new View.OnTouchListener() {
+    public static void buttonEffect(View view){
+        view.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -236,29 +240,18 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onBackPressed(){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Seguro que quieres finalizar la comanda de la mesa "+numMesas);
+            alert.setMessage("Quieres finalizar la comanda de la mesa "+mesaNum);
             alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //guardarComandaFinalizado();
-                    if(socket.isConnected()){
-                        startActivity(new Intent(getApplicationContext(),MesasActivity.class));
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(),"No se pudo conectar con el servidor",Toast.LENGTH_LONG);
-                    }
+                    guardarComandaInacabada();
+                    startActivity(new Intent(getApplicationContext(),MesasActivity.class));
                 }
             });
             alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    guardarComandaInacabada();
-                    if(socket.isConnected()){
-                        startActivity(new Intent(getApplicationContext(),MesasActivity.class));
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(),"No se pudo conectar con el servidor",Toast.LENGTH_LONG);
-                    }
+
                 }
             });
             alert.show();

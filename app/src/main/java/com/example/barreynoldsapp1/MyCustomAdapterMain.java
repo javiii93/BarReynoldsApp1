@@ -1,12 +1,14 @@
 package com.example.barreynoldsapp1;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
 
@@ -16,9 +18,12 @@ import java.util.ArrayList;
 public class MyCustomAdapterMain  extends BaseAdapter implements ListAdapter {
     private Context context;
     public ArrayList<Categoria>list;
+    private ImageView img;
+    int i=1;
+
 
     public MyCustomAdapterMain(ArrayList<Categoria> list, Context context) {
-        this.list = arrayCategorias;
+        this.list = list;
         this.context = context;
     }
 
@@ -49,12 +54,21 @@ public class MyCustomAdapterMain  extends BaseAdapter implements ListAdapter {
 
         ImageButton b1 = view.findViewById(R.id.botonCategoria);
         //b1.setText(arrayCategorias.get(pos).getNombre());
-        b1.setImageResource(R.drawable.bebidalol_1);
-        //b1.set
+        if(list.get(pos).getNombre().toLowerCase().contains("begud")){
+            b1.setImageResource(R.drawable.bebidalol_1);
+        }
+        else if(list.get(pos).getNombre().toLowerCase().contains("plat")){
+            b1.setImageResource(R.drawable.comidapng_1);
+        }
+        else if(list.get(pos).getNombre().toLowerCase().contains("tap")){
+            b1.setImageResource(R.drawable.tapaspng_1);
+        }
+        else if(list.get(pos).getNombre().toLowerCase().contains("entrep")){
+            b1.setImageResource(R.drawable.bocadillo2_1);
+        }
+        //b1.setImageResource(arrayCategorias.get(pos).getFoto());
         b1.setFocusable(false);
-
-        //b1.setClickable(false);
-        // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
+        // AÑADIMOS AL VIEW (BOTON) EL NOMBRE CATEGORIA
         view.setContentDescription(arrayCategorias.get(pos).getNombre());
         return view;
     }
