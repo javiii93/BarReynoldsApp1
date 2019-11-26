@@ -208,6 +208,7 @@ public class ComandaActivity extends AppCompatActivity {
                 eProducto.appendChild(eCantidad);
             }
             Element eCamarero = doc.createElement("camarero");
+            System.out.println("-----------------------------------"+nombreEmpleado);
             eCamarero.appendChild(doc.createTextNode(nombreEmpleado));
             eRaiz.appendChild(eCamarero);
            /* Attr attr = doc.createAttribute("id");

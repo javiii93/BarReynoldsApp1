@@ -53,7 +53,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     public static Socket socket=new Socket();
     public static InetSocketAddress sockAdr;
     private String rutaComandaXml="camareros.xml";
-    public static String nombreEmpleado;
+    public static String nombreEmpleado="";
     Document doc;
     ObjectInputStream in;
 
@@ -93,10 +93,12 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    nombreEmpleado=parent.getItemAtPosition(position).toString();
-                    //nombreEmpleado.toLowerCase().replaceAll("[\\d]","");
+                   // nombreEmpleado=parent.getItemAtPosition(position).toString();
+                    nombreEmpleado=String.valueOf(arrayCamareros.get(position).getId())+arrayCamareros.get(position).getNombre();
+                    System.out.println(nombreEmpleado+"------------------------------");
+                   /* nombreEmpleado=nombreEmpleado.toLowerCase().replaceAll("[\\d]","");
                     Log.d("camarero seleccionado",nombreEmpleado);
-                    //i.putExtra("camarero",nombreEmpleado);
+                    i.putExtra("camarero",nombreEmpleado);*/
                     startActivity(i);
                 }
             });
