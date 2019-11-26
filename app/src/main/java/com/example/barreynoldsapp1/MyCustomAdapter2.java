@@ -2,6 +2,7 @@ package com.example.barreynoldsapp1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayTotalProductos;
+import static com.example.barreynoldsapp1.MainActivity.categoria;
+
 public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
-    private ArrayList<Producto> list = new ArrayList<>();
+    private ArrayList<Producto> list ;
     private Context context;
     private ImageView img;
    private CategoriasActivity ca;
@@ -47,15 +51,21 @@ public class MyCustomAdapter2 extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.layout_adapter_2, null);
         }
+        Log.d("-------",categoria);
+            if (list.get(pos).getCategoriaNombre().toLowerCase().contains(categoria)) {
+                img = view.findViewById(R.id.imageView2);
+                System.out.println(list.get(pos).getImagen());
+                img.setImageResource(list.get(pos).getImagen());
+                //Handle TextView and display string from your list
+                TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
+                //por el casteo a charsequence puede fallar
+                listItemText.setText(list.get(position).toString());
+            }
 
-        img = view.findViewById(R.id.imageView2);
-        img.setImageResource(list.get(position).getImagen());
-        //Handle TextView and display string from your list
-        TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
-        //por el casteo a charsequence puede fallar
-        listItemText.setText(list.get(position).toString());
+            return view;
 
-        return view;
+
+
 
     }
 

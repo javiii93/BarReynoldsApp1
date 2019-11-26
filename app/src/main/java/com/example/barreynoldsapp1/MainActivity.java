@@ -47,6 +47,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayTotalProductos;
 import static com.example.barreynoldsapp1.Camareros_Activity.nombreEmpleado;
 import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
@@ -65,16 +66,18 @@ public class MainActivity extends AppCompatActivity {
     ObjectOutputStream out;
     String uri;
     String mesaNum;
+    public static String categoria;
     //ListView listViewCategorias;
     GridView gridFiends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        mesaNum=getIntent().getStringExtra("mesaNum");
         setContentView(R.layout.activity_main_grid);
-        //listViewCategorias=findViewById(R.id.listViewCategorias);
+
         gridFiends=findViewById(R.id.gridFriends);
+
+        mesaNum=getIntent().getStringExtra("mesaNum");
+        //listViewCategorias=findViewById(R.id.listViewCategorias);
         //listViewCategorias.setDivider(null);
         //listViewCategorias.setDividerHeight(0);
         nombreEmpleado=getIntent().getExtras().toString();
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<arrayCategorias.size();i++) {
             Log.d("....", arrayCategorias.get(i).getNombre());
         }
+
         MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
         //listViewCategorias.setAdapter(adaptador);
         gridFiends.setAdapter(adaptador);
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         b = new Button(view.getContext());
+        categoria=view.getContentDescription().toString();
         buttonEffect(b);
         Intent i = new Intent(this, CategoriasActivity.class);
         startActivity(i);
@@ -244,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
             alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    arrayProductos2=new ArrayList<>();
                     guardarComandaInacabada();
                     startActivity(new Intent(getApplicationContext(),MesasActivity.class));
                 }

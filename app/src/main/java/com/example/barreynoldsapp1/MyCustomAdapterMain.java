@@ -56,15 +56,22 @@ public class MyCustomAdapterMain  extends BaseAdapter implements ListAdapter {
         //b1.setText(arrayCategorias.get(pos).getNombre());
         if(list.get(pos).getNombre().toLowerCase().contains("begud")){
             b1.setImageResource(R.drawable.bebidalol_1);
+            b1.setContentDescription("begudes");
         }
         else if(list.get(pos).getNombre().toLowerCase().contains("plat")){
             b1.setImageResource(R.drawable.comidapng_1);
+            b1.setContentDescription("plats");
+
         }
         else if(list.get(pos).getNombre().toLowerCase().contains("tap")){
             b1.setImageResource(R.drawable.tapaspng_1);
+            b1.setContentDescription("tapes");
+
         }
         else if(list.get(pos).getNombre().toLowerCase().contains("entrep")){
             b1.setImageResource(R.drawable.bocadillo2_1);
+            b1.setContentDescription("entrepans");
+
         }
         //b1.setImageResource(arrayCategorias.get(pos).getFoto());
         b1.setFocusable(false);

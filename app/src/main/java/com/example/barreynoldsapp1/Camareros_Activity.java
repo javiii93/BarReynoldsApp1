@@ -47,6 +47,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     public static int port = 4445;
     String uri;
     public static int numMesas;
+    public static ArrayList<Producto> arrayTotalProductos=new ArrayList<Producto>();
     public static ArrayList<String>categorias;
     public static ArrayList<Categoria> arrayCategorias=new ArrayList<>();
     public static Socket socket=new Socket();
@@ -122,6 +123,9 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
                     System.out.println("--- "+arrayCamareros.toString());
                     numMesas=(int) in.readObject();
                     categorias=(ArrayList<String>)in.readObject();
+                    arrayTotalProductos=(ArrayList<Producto>)in.readObject();
+                    System.out.println("--- "+arrayTotalProductos.toString());
+
                     System.out.println(categorias.toString());
 
                 } catch (ClassNotFoundException e) {
@@ -163,5 +167,14 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         // Element del primer elemento del NodeList
         Element e2=(Element)nl.item(0);
         host=e2.getTextContent();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        i.addCategory(Intent.CATEGORY_HOME);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 }

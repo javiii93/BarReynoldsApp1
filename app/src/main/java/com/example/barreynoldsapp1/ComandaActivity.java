@@ -39,6 +39,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import static com.example.barreynoldsapp1.CategoriasActivity.created;
+import static com.example.barreynoldsapp1.MainActivity.buttonEffect;
 import static com.example.barreynoldsapp1.MyCustomAdapter.imprimirProductos;
 
 
@@ -109,6 +110,7 @@ public class ComandaActivity extends AppCompatActivity {
 
     }
     public void guardarComandaFinalizado(View view) {
+        buttonEffect(view);
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {

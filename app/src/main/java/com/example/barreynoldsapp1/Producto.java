@@ -11,9 +11,19 @@ public class Producto implements Comparable<Producto>, Serializable {
     private String nombre;
     private float precio;
     private String descripcion, categoria;
+    private String categoriaNombre;
     private int cantidad;
     private int imagen;
 
+    private static final long serialVersionUID = 1733521708430895847L;
+
+    public String getCategoriaNombre() {
+        return categoriaNombre;
+    }
+
+    public void setCategoriaNombre(String categoriaNombre) {
+        this.categoriaNombre = categoriaNombre;
+    }
 
     public String getNombre() {
         return nombre;
@@ -80,6 +90,25 @@ public class Producto implements Comparable<Producto>, Serializable {
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.cantidad = cantidad;
+        this.imagen = imagen;
+    }
+
+    public Producto(int id, String nombre, float precio, String descripcion, String categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+    }
+
+    public Producto(int id, String nombre, float precio, String descripcion, String categoria, String categoriaNombre, int cantidad, int imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.categoriaNombre = categoriaNombre;
         this.cantidad = cantidad;
         this.imagen = imagen;
     }

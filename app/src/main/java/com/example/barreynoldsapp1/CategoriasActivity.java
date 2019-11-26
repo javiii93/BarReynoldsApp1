@@ -33,19 +33,22 @@ import java.util.Collections;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayTotalProductos;
 import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.sockAdr;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
+import static com.example.barreynoldsapp1.MainActivity.categoria;
 
 
 public class CategoriasActivity extends AppCompatActivity {
-    private String categoria;
     private ListView lista;
     //Contiene productos del XML
     private ArrayList<Producto> arrayProductos = new ArrayList<>();
     //Contiene productos clickados
     public static ArrayList<Producto> arrayProductos2=new ArrayList<>();
+    private ArrayList<Producto> arrayProductos3 = new ArrayList<>();
+
     private MyCustomAdapter2 adaptador;
     private String imgUri;
     Intent i;
@@ -58,6 +61,8 @@ public class CategoriasActivity extends AppCompatActivity {
     ObjectInputStream in;
     ObjectOutputStream out;
     Socket socket=new Socket();
+    int identifier;
+    String nombreFoto;
 
 
     @Override
@@ -68,13 +73,23 @@ public class CategoriasActivity extends AppCompatActivity {
 
         Collections.sort(arrayProductos2);
         i = new Intent(this, ComandaActivity.class);
-        categoria = getIntent().getStringExtra("categoria");
         resources = getResources();
         // Instanciamos objetos Clase R
         lista = findViewById(R.id.listView);
         //Lee XML e introduce productos en arrayProductos para mostrarlos
         //recuperarProductosXML();
-        adaptador = new MyCustomAdapter2(arrayProductos, this);
+
+        for(Producto p:arrayTotalProductos){
+            if(p.getCategoriaNombre().contains(categoria)){
+                nombreFoto=p.getNombre().toLowerCase().replaceAll(" ","_").replaceAll("-","_").replaceAll("ç","c");
+                identifier=getResources().getIdentifier(nombreFoto,"drawable",getPackageName());
+                p.setImagen(identifier);
+                arrayProductos3.add(p);
+            }
+        }
+
+        adaptador = new MyCustomAdapter2(arrayProductos3, this);
+        adaptador.notifyDataSetChanged();
 
         lista.setAdapter(adaptador);
        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
