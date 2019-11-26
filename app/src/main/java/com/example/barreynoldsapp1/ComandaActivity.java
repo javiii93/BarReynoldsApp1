@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,9 +15,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.nombreEmpleado;
 import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
+import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.socket;
+import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 import org.w3c.dom.Attr;
@@ -24,6 +30,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +54,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import static com.example.barreynoldsapp1.CategoriasActivity.created;
 import static com.example.barreynoldsapp1.MainActivity.buttonEffect;
+import static com.example.barreynoldsapp1.MainActivity.mesaNum;
 import static com.example.barreynoldsapp1.MyCustomAdapter.imprimirProductos;
 
 
@@ -109,6 +124,46 @@ public class ComandaActivity extends AppCompatActivity {
         },1000);
 
     }
+
+    public void conexionServidor() {
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            port = 4444;
+            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                File file = new File(getFilesDir(), nuevaComanda);
+                // Get the size of the file
+                byte[] bytes = new byte[16 * 1024];
+                InputStream in = new FileInputStream(file);
+                OutputStream out = socket.getOutputStream();
+
+                int count;
+                while ((count = in.read(bytes)) > 0) {
+                    out.write(bytes, 0, count);
+                }
+                out.close();
+                in.close();
+                socket.close();
+            }
+
+
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void guardarComandaFinalizado(View view) {
         buttonEffect(view);
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -159,7 +214,7 @@ public class ComandaActivity extends AppCompatActivity {
             eCamarero.setAttributeNode(attr);*/
 
             Element eMesa = doc.createElement("mesa");
-            eMesa.appendChild(doc.createTextNode(String.valueOf(numMesas)));
+            eMesa.appendChild(doc.createTextNode(String.valueOf(mesaNum)));
             eRaiz.appendChild(eMesa);
 
             Element eFechaHora = doc.createElement("fecha");
@@ -188,6 +243,6 @@ public class ComandaActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        conexionServidor();
     }
 }

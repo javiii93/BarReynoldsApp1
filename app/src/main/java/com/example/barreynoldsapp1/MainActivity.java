@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     ObjectInputStream in;
     ObjectOutputStream out;
     String uri;
-    String mesaNum;
+    public static String mesaNum;
     public static String categoria;
     //ListView listViewCategorias;
     GridView gridFiends;
