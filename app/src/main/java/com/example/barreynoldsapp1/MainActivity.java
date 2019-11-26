@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //listViewCategorias=findViewById(R.id.listViewCategorias);
         //listViewCategorias.setDivider(null);
         //listViewCategorias.setDividerHeight(0);
-        nombreEmpleado=getIntent().getExtras().toString();
+        //nombreEmpleado=getIntent().getExtras().toString();
         System.out.println("-------"+nombreEmpleado);
         //CrearConexion.conexion();
         for(int i=0;i<arrayCategorias.size();i++) {

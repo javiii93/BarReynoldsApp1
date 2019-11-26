@@ -56,7 +56,7 @@ public class MesasActivity extends AppCompatActivity {
             }
         });
         // Prueba local
-        numMesas=5;
+       // numMesas=5;
         for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
         }
