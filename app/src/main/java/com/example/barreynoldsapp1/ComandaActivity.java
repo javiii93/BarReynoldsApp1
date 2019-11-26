@@ -77,6 +77,7 @@ public class ComandaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+        Log.d("xivato",nombreEmpleado);
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         Collections.sort(arrayProductos2);
