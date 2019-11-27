@@ -11,10 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainGrid"></activity>
-        <activity android:name=".GridCategorias" />
-        <activity android:name=".MesasActivity" />
-        <activity android:name=".Camareros_Activity" />
         <activity
             android:name=".PrincipalActivity"
             android:label="@string/app_name"
@@ -25,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Camareros_Activity" />
+        <activity android:name=".MesasActivity" />
         <activity android:name=".CategoriasActivity" />
         <activity android:name=".ComandaActivity" />
         <activity android:name=".MainActivity" />

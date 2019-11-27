@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/list_item_string"
-        android:layout_width="162dp"
-        android:layout_height="68dp"
+        android:layout_width="439dp"
+        android:layout_height="69dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="76dp"
         android:paddingLeft="8dp"
