@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.MenuView;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -63,13 +64,17 @@ public class CategoriasActivity extends AppCompatActivity {
     Socket socket=new Socket();
     int identifier;
     String nombreFoto;
+    MediaPlayer sonido,sonido2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
+
         created=true;
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        sonido2 = MediaPlayer.create(this, R.raw.roblox);
 
         Collections.sort(arrayProductos2);
         i = new Intent(this, ComandaActivity.class);
@@ -93,9 +98,11 @@ public class CategoriasActivity extends AppCompatActivity {
 
         lista.setAdapter(adaptador);
        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Producto p=((Producto)parent.getItemAtPosition(position));
+               sonido.start();
                if(arrayProductos2.isEmpty()){
                    p.setCantidad(1);
                    arrayProductos2.add(p);
@@ -220,7 +227,9 @@ public class CategoriasActivity extends AppCompatActivity {
         }
     }
     public void onClick(View view) {
+        sonido2.start();
         startActivity(i);
+
     }
 
     public String acortarRuta(String s) {

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -55,12 +57,18 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
     private String rutaComandaXml="camareros.xml";
     public static String nombreEmpleado="";
     Document doc;
+    public static MediaPlayer sonido,sonido2;
     ObjectInputStream in;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camareros);
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        sonido2 = MediaPlayer.create(this, R.raw.roblox);
+
+
         try{
             getConfig();
         } catch (SAXException e) {
@@ -93,6 +101,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    sonido2.start();
                    // nombreEmpleado=parent.getItemAtPosition(position).toString();
                     nombreEmpleado=String.valueOf(arrayCamareros.get(position).getId())+arrayCamareros.get(position).getNombre();
                     System.out.println(nombreEmpleado+"------------------------------");
@@ -105,6 +114,15 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public void añadirCamarero(View view){
+        MainActivity.buttonEffect(view);
+        Intent i = new Intent(this,CrearCamarero.class);
+        startActivity(i);
+
+    }
+    public void loginCamarero(){
+
     }
     public void conexionServidor(){
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -173,6 +191,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
 
     @Override
     public void onBackPressed() {
+        sonido.start();
         super.onBackPressed();
         Intent i = new Intent(Intent.ACTION_MAIN);
         i.addCategory(Intent.CATEGORY_HOME);
