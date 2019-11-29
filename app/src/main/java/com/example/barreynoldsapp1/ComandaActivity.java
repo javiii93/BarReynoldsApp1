@@ -59,7 +59,6 @@ import static com.example.barreynoldsapp1.MyCustomAdapter.imprimirProductos;
 
 
 public class ComandaActivity extends AppCompatActivity {
-    public static  ArrayList<Comanda> arrayComanda = new ArrayList<>();
     public ListView lista1;
     TextView tvv;
     Button deleteBtn,addBtn;

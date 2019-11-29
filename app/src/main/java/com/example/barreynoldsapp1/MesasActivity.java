@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,14 +14,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -27,7 +38,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+import static com.example.barreynoldsapp1.Camareros_Activity.arrayTotalProductos;
+import static com.example.barreynoldsapp1.Camareros_Activity.categorias;
+import static com.example.barreynoldsapp1.Camareros_Activity.host;
+import static com.example.barreynoldsapp1.Camareros_Activity.nombreEmpleado;
 import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
+import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.sockAdr;
+import static com.example.barreynoldsapp1.Camareros_Activity.socket;
+import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
+import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class MesasActivity extends AppCompatActivity {
     Document doc;
@@ -35,12 +55,15 @@ public class MesasActivity extends AppCompatActivity {
     ArrayList<Button>arrayMesas=new ArrayList<>();
     Intent intent;
     Button b1;
+    ObjectInputStream in;
+     int numMesaComandaInacabada;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
-
+System.out.println("fdsafdsf");
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);
         listViewMesas.setDivider(null);
@@ -55,10 +78,10 @@ public class MesasActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // Prueba local
-       // numMesas=5;
+        conexionServidor();
         for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
+         //   if()
         }
 
         MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
@@ -75,4 +98,54 @@ public class MesasActivity extends AppCompatActivity {
         arrayCategorias=new ArrayList<Categoria>();
         startActivity(intent);
     }
+    public void conexionServidor(){
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            sockAdr = new InetSocketAddress(host, 4447);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                in = new ObjectInputStream(socket.getInputStream());
+
+                try {
+                    numMesaComandaInacabada=in.readInt();
+                    arrayMesas.get(numMesaComandaInacabada-1).setBackgroundColor(Color.GREEN);
+                    Object ob = in.readObject();
+                    String nombre="productosMesa"+numMesaComandaInacabada;
+                  // arrayProductos2= (ArrayList<Producto>)ob;
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                in.close();
+                socket.close();
+            }
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            /*Intent intent = new Intent(this,PrincipalActivity.class);
+            finish();
+            startActivity(intent);*/
+            try {
+
+                socket.close();
+                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+                socket = new Socket();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
