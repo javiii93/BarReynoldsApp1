@@ -54,6 +54,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
+import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -90,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
         //listViewCategorias.setAdapter(adaptador);
         gridFiends.setAdapter(adaptador);
+              if(arrayMesasInacabadas.contains(Integer.parseInt(mesaNum))){
+            enviarNumeroMesaParaRecuperarComanda(Integer.parseInt(mesaNum));
+            System.out.println("enviado numero de mesa "+mesaNum+" para recuperar comanda inacabada");
+        }
     }
 
     public void onClick(View view) {
@@ -100,25 +105,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void conexionServidor() {
+    public void enviarNumeroMesaParaRecuperarComanda(int mesa) {
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
         try{
-            port = 4444;
+            port = 4448;
             InetSocketAddress sockAdr = new InetSocketAddress(host, port);
             socket = new Socket();
             socket.connect(sockAdr, timeout);
             if(socket.isConnected()) {
-                File file = new File(getFilesDir(), nuevaComanda);
-                // Get the size of the file
-                byte[] bytes = new byte[16 * 1024];
-                InputStream in = new FileInputStream(file);
-                OutputStream out = socket.getOutputStream();
-
-                int count;
-                while ((count = in.read(bytes)) > 0) {
-                    out.write(bytes, 0, count);
-                }
-                out.close();
+                ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
+                salidaDatos.writeInt(mesa);
+                salidaDatos.close();
+                in = new ObjectInputStream(socket.getInputStream());
+                Object ob = in.readObject();
+                arrayProductos2.clear();
+                arrayProductos2= (ArrayList<Producto>)ob;
+                System.out.println(arrayProductos2.toString());
                 in.close();
                 socket.close();
             }
@@ -135,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

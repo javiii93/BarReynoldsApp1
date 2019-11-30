@@ -1,6 +1,7 @@
 package com.example.barreynoldsapp1;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
 
 public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
     private ArrayList<Button> list = new ArrayList<>();
@@ -58,6 +60,17 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         b1.setClickable(false);
         // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
         view.setContentDescription(String.valueOf(i));
+        for(int j=0;j<arrayMesasInacabadas.size();j++){
+            if(arrayMesasInacabadas.get(j)==i){
+                b1.setBackgroundColor(Color.GREEN);
+            }else{
+                /*
+               hay que buscar un color que no se coma todo el recuadro del adapter
+                b1.setBackgroundColor(Color.GRAY);
+               */
+            }
+        }
+
         i++;
         return view;
 

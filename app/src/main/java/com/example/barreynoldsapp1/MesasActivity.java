@@ -53,17 +53,17 @@ public class MesasActivity extends AppCompatActivity {
     Document doc;
     ListView listViewMesas;
     ArrayList<Button>arrayMesas=new ArrayList<>();
+    static ArrayList<Integer>arrayMesasInacabadas=new ArrayList<>();
     Intent intent;
     Button b1;
     ObjectInputStream in;
-     int numMesaComandaInacabada;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
-System.out.println("fdsafdsf");
+
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);
         listViewMesas.setDivider(null);
@@ -81,14 +81,11 @@ System.out.println("fdsafdsf");
         conexionServidor();
         for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
-         //   if()
+
         }
 
         MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
         listViewMesas.setAdapter(adaptador);
-
-
-
     }
 
     @Override
@@ -111,17 +108,9 @@ System.out.println("fdsafdsf");
             socket.connect(sockAdr, timeout);
             if(socket.isConnected()) {
                 in = new ObjectInputStream(socket.getInputStream());
-
-                try {
-                    numMesaComandaInacabada=in.readInt();
-                    arrayMesas.get(numMesaComandaInacabada-1).setBackgroundColor(Color.GREEN);
                     Object ob = in.readObject();
-                    String nombre="productosMesa"+numMesaComandaInacabada;
-                  // arrayProductos2= (ArrayList<Producto>)ob;
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                  arrayMesasInacabadas= (ArrayList<Integer>)ob;
+                    System.out.println(arrayMesasInacabadas.toString());
                 in.close();
                 socket.close();
             }
@@ -144,6 +133,8 @@ System.out.println("fdsafdsf");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
