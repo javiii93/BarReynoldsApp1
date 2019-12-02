@@ -11,6 +11,7 @@
         android:layout_width="121dp"
         android:layout_height="115dp"
         android:background="#00FFFFFF"
+        android:onClick="dispatchTakePictureIntent"
         android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

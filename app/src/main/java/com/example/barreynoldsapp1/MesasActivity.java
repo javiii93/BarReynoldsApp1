@@ -53,10 +53,10 @@ import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 public class MesasActivity extends AppCompatActivity {
     Document doc;
     ListView listViewMesas;
-    ArrayList<Button>arrayMesas=new ArrayList<>();
+    ArrayList<ImageButton>arrayMesas=new ArrayList<>();
     static ArrayList<Integer>arrayMesasInacabadas=new ArrayList<>();
     Intent intent;
-    Button b1;
+    ImageButton b1;
     MediaPlayer sonido;
     ObjectInputStream in;
 

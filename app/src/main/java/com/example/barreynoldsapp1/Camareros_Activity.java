@@ -41,7 +41,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 public class Camareros_Activity extends AppCompatActivity implements Serializable {
-    private ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
+    public static  ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
     private ListView lista;
     private Intent i;
     public static int timeout=5000;

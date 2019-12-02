@@ -21,12 +21,12 @@ import androidx.core.content.ContextCompat;
 import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
 
 public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
-    private ArrayList<Button> list = new ArrayList<>();
+    private ArrayList<ImageButton> list = new ArrayList<>();
     private Context context;
     int i=1;
 
 
-    public MyCustomAdapterMesas(ArrayList<Button> list, Context context) {
+    public MyCustomAdapterMesas(ArrayList<ImageButton> list, Context context) {
         this.list = list;
         this.context = context;
     }
