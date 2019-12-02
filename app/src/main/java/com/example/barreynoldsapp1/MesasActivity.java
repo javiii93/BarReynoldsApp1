@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -54,6 +55,7 @@ public class MesasActivity extends AppCompatActivity {
     ListView listViewMesas;
     ArrayList<Button>arrayMesas=new ArrayList<>();
     static ArrayList<Integer>arrayMesasInacabadas=new ArrayList<>();
+    static ArrayList<ArrayList<Producto>> comandasInacabadas;
     Intent intent;
     Button b1;
     ObjectInputStream in;
@@ -78,7 +80,9 @@ public class MesasActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        comandasInacabadas=new ArrayList<ArrayList<Producto>>();
         conexionServidor();
+        recuperarTodasComandasInacabadas();
         for(int i=0;i<numMesas;i++){
             arrayMesas.add(b1);
 
@@ -111,6 +115,52 @@ public class MesasActivity extends AppCompatActivity {
                     Object ob = in.readObject();
                   arrayMesasInacabadas= (ArrayList<Integer>)ob;
                     System.out.println(arrayMesasInacabadas.toString());
+                in.close();
+                socket.close();
+            }
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            /*Intent intent = new Intent(this,PrincipalActivity.class);
+            finish();
+            startActivity(intent);*/
+            try {
+
+                socket.close();
+                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+                socket = new Socket();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public void recuperarTodasComandasInacabadas(){
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            sockAdr = new InetSocketAddress(host, 4448);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                in = new ObjectInputStream(socket.getInputStream());
+                Object ob = in.readObject();
+                comandasInacabadas=(ArrayList<ArrayList<Producto>>)ob;
+                System.out.println("-------------------------------------");
+               // System.out.println(comandasInacabadas.get(0).get(0).toString());
+
                 in.close();
                 socket.close();
             }

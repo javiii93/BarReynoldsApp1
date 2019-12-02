@@ -55,6 +55,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
+import static com.example.barreynoldsapp1.MesasActivity.comandasInacabadas;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         gridFiends=findViewById(R.id.gridFriends);
 
         mesaNum=getIntent().getStringExtra("mesaNum");
+        //enviarNumeroMesaParaRecuperarComanda(Integer.parseInt(mesaNum));
+     if(comandasInacabadas.get(Integer.parseInt(mesaNum)-1)!=null){
+        arrayProductos2= comandasInacabadas.get(Integer.parseInt(mesaNum)-1);}
         //listViewCategorias=findViewById(R.id.listViewCategorias);
         //listViewCategorias.setDivider(null);
         //listViewCategorias.setDividerHeight(0);
@@ -91,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
         MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
         //listViewCategorias.setAdapter(adaptador);
         gridFiends.setAdapter(adaptador);
-              if(arrayMesasInacabadas.contains(Integer.parseInt(mesaNum))){
+             /* if(arrayMesasInacabadas.contains(Integer.parseInt(mesaNum))){
             enviarNumeroMesaParaRecuperarComanda(Integer.parseInt(mesaNum));
             System.out.println("enviado numero de mesa "+mesaNum+" para recuperar comanda inacabada");
-        }
+        }*/
     }
 
     public void onClick(View view) {
@@ -115,13 +119,14 @@ public class MainActivity extends AppCompatActivity {
             if(socket.isConnected()) {
                 ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
                 salidaDatos.writeInt(mesa);
-                salidaDatos.close();
                 in = new ObjectInputStream(socket.getInputStream());
                 Object ob = in.readObject();
                 arrayProductos2.clear();
                 arrayProductos2= (ArrayList<Producto>)ob;
                 System.out.println(arrayProductos2.toString());
                 in.close();
+                salidaDatos.close();
+
                 socket.close();
             }
 
