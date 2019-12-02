@@ -262,8 +262,8 @@ public class MainActivity extends AppCompatActivity {
             alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    arrayProductos2=new ArrayList<>();
                     guardarComandaInacabada();
+                    arrayProductos2=new ArrayList<>();
                     startActivity(new Intent(getApplicationContext(),MesasActivity.class));
                 }
             });

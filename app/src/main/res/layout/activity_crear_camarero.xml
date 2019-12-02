@@ -74,6 +74,7 @@
         android:layout_marginStart="272dp"
         android:layout_marginLeft="272dp"
         android:layout_marginTop="420dp"
+        android:onClick="CrearCamarero"
         android:text="Crear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

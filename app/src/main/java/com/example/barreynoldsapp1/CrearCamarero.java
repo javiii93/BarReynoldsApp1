@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,9 +37,9 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
     public static ImageView iv;
     public EditText etUser,etPass;
     Socket socket;
-    ObjectOutputStream out;
     Cambrer c;
     public static MediaPlayer sonido,sonido2;
+    private static final long serialVersionUID = 1733521708430895847L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,23 +79,28 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
             Toast.makeText(this,"ERROR: Password vacio",Toast.LENGTH_LONG).show();
         }
         else {
-            c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),iv);
-            arrayCamareros.add(c);
-            enviarCamarero();
+             c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString());
+            enviarCamarero(4545);
+/*                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                Bitmap bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte array[] = baos.toByteArray();
+                enviarCamarero(array, 4546);*/
+
+
         }
 
     }
-    public void enviarCamarero() {
+    public void enviarCamarero(int port) {
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
         try{
-            port = 4545;
             InetSocketAddress sockAdr = new InetSocketAddress(host, port);
             socket = new Socket();
             socket.connect(sockAdr, timeout);
             if(socket.isConnected()) {
                 ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
                 salidaDatos.writeObject(c);
-                out.close();
+                salidaDatos.close();
                 socket.close();
             }
 
