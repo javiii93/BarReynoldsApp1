@@ -3,6 +3,7 @@ package com.example.barreynoldsapp1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -69,13 +70,16 @@ public class ComandaActivity extends AppCompatActivity {
     Comanda c = new Comanda();
     int selectedRow;
     final MyCustomAdapter adaptador = new MyCustomAdapter(this);
-
+    MediaPlayer sonido,sonido2;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        sonido2 = MediaPlayer.create(this, R.raw.roblox);
+
         Log.d("xivato",nombreEmpleado);
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -95,6 +99,7 @@ public class ComandaActivity extends AppCompatActivity {
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                sonido.start();
                 removeListItem(view,i);
             }
         });
@@ -104,6 +109,7 @@ public class ComandaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        sonido.start();
         created=false;
         super.onBackPressed();
     }

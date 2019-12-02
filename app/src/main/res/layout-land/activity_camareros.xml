@@ -8,15 +8,30 @@
 
     <ListView
         android:id="@+id/listview5"
-        android:layout_width="620dp"
-        android:layout_height="340dp"
+        android:layout_width="631dp"
+        android:layout_height="307dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="78dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="588dp"
+        android:layout_marginLeft="588dp"
+        android:layout_marginTop="304dp"
+        android:background="#00FFFFFF"
+        android:onClick="añadirCamarero"
+        android:scaleType="fitStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
