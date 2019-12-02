@@ -47,6 +47,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.sockAdr;
 import static com.example.barreynoldsapp1.Camareros_Activity.socket;
+import static com.example.barreynoldsapp1.Camareros_Activity.sonido2;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
@@ -66,6 +67,7 @@ public class MesasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
 
+        sonido2.start();
         sonido = MediaPlayer.create(this, R.raw.bambu);
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);

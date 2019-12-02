@@ -79,6 +79,7 @@ public class ComandaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comanda);
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
+        sonido2.start();
 
         Log.d("xivato",nombreEmpleado);
 

@@ -75,6 +75,7 @@ public class CategoriasActivity extends AppCompatActivity {
         created=true;
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
+        sonido2.start();
 
         Collections.sort(arrayProductos2);
         i = new Intent(this, ComandaActivity.class);

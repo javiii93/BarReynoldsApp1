@@ -102,6 +102,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     sonido.start();
+                   // loginCamarero();
                    // nombreEmpleado=parent.getItemAtPosition(position).toString();
                     nombreEmpleado=String.valueOf(arrayCamareros.get(position).getId())+arrayCamareros.get(position).getNombre();
                     System.out.println(nombreEmpleado+"------------------------------");

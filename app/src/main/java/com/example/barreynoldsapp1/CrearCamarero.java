@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -28,7 +29,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
-public class CrearCamarero extends AppCompatActivity {
+public class CrearCamarero extends AppCompatActivity implements Serializable {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static ImageView iv;
     public EditText etUser,etPass;
@@ -84,7 +85,7 @@ public class CrearCamarero extends AppCompatActivity {
     public void enviarCamarero() {
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
         try{
-            port = 4449;
+            port = 4545;
             InetSocketAddress sockAdr = new InetSocketAddress(host, port);
             socket = new Socket();
             socket.connect(sockAdr, timeout);
