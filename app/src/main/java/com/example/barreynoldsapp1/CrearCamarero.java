@@ -6,17 +6,34 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+
 import static com.example.barreynoldsapp1.Camareros_Activity.arrayCamareros;
+import static com.example.barreynoldsapp1.Camareros_Activity.host;
+import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
+import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
 public class CrearCamarero extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static ImageView iv;
     public EditText etUser,etPass;
+    Socket socket;
+    ObjectOutputStream out;
+    Cambrer c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +66,38 @@ public class CrearCamarero extends AppCompatActivity {
             Toast.makeText(this,"ERROR: Password vacio",Toast.LENGTH_LONG).show();
         }
         else {
-            Cambrer c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),iv);
+            c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),iv);
             arrayCamareros.add(c);
             // enviar camarero
         }
 
+    }
+    public void enviarCamarero() {
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            port = 4449;
+            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
+                salidaDatos.writeObject(c);
+                out.close();
+                socket.close();
+            }
+
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
