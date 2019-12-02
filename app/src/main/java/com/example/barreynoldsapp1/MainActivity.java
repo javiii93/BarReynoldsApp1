@@ -3,6 +3,7 @@ package com.example.barreynoldsapp1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -71,10 +72,13 @@ public class MainActivity extends AppCompatActivity {
     public static String categoria;
     //ListView listViewCategorias;
     GridView gridFiends;
+    MediaPlayer sonido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
+        sonido = MediaPlayer.create(this, R.raw.roblox);
 
         gridFiends=findViewById(R.id.gridFriends);
 
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        sonido.start();
         b = new Button(view.getContext());
         categoria=view.getContentDescription().toString();
         buttonEffect(b);
@@ -253,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void onBackPressed(){
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Quieres finalizar la comanda de la mesa "+mesaNum);
             alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override

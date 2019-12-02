@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -58,6 +59,7 @@ public class MesasActivity extends AppCompatActivity {
     static ArrayList<ArrayList<Producto>> comandasInacabadas;
     Intent intent;
     Button b1;
+    MediaPlayer sonido;
     ObjectInputStream in;
 
 
@@ -66,6 +68,7 @@ public class MesasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
 
+        sonido = MediaPlayer.create(this, R.raw.bambu);
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);
         listViewMesas.setDivider(null);
@@ -76,6 +79,7 @@ public class MesasActivity extends AppCompatActivity {
 
         listViewMesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
+                sonido.start();
                 intent.putExtra("mesaNum",v.getContentDescription());
                 startActivity(intent);
             }
@@ -90,10 +94,14 @@ public class MesasActivity extends AppCompatActivity {
 
         MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
         listViewMesas.setAdapter(adaptador);
+
+
+
     }
 
     @Override
     public void onBackPressed() {
+        sonido.start();
         super.onBackPressed();
         intent = new Intent(getApplicationContext(),Camareros_Activity.class);
         arrayCategorias=new ArrayList<Categoria>();

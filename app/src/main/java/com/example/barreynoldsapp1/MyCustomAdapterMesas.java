@@ -1,26 +1,30 @@
 package com.example.barreynoldsapp1;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.example.barreynoldsapp1.Camareros_Activity.arrayCategorias;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
 import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
 
 public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
     private ArrayList<Button> list = new ArrayList<>();
     private Context context;
     int i=1;
+
 
     public MyCustomAdapterMesas(ArrayList<Button> list, Context context) {
         this.list = list;
@@ -42,6 +46,7 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -53,21 +58,20 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.layout_adapter_mesas, null);
         }
 
-        Button b1 = view.findViewById(R.id.buttonMesa);
+        ImageButton b1 = view.findViewById(R.id.buttonMesa);
+        TextView t1 = view.findViewById(R.id.textView);
 
-        b1.setText("Mesa "+i);
+        t1.setText("Mesa "+i);
         b1.setFocusable(false);
         b1.setClickable(false);
+
         // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
         view.setContentDescription(String.valueOf(i));
         for(int j=0;j<arrayMesasInacabadas.size();j++){
             if(arrayMesasInacabadas.get(j)==i){
-                b1.setBackgroundColor(Color.GREEN);
+                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
             }else{
-                /*
-               hay que buscar un color que no se coma todo el recuadro del adapter
-                b1.setBackgroundColor(Color.GRAY);
-               */
+                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
             }
         }
 

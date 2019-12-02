@@ -34,6 +34,14 @@ public class Cambrer implements Serializable {
     }
 
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return  id +"\n"+nom_Cambrer;
