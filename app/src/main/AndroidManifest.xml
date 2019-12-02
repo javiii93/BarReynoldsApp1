@@ -26,6 +26,10 @@
         <activity android:name=".CategoriasActivity" />
         <activity android:name=".ComandaActivity" />
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
