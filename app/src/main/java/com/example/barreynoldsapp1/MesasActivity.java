@@ -99,9 +99,9 @@ public class MesasActivity extends AppCompatActivity {
     public void onBackPressed() {
         sonido.start();
         super.onBackPressed();
-        intent = new Intent(getApplicationContext(),Camareros_Activity.class);
+        //intent = new Intent(getApplicationContext(),Camareros_Activity.class);
         arrayCategorias=new ArrayList<Categoria>();
-        startActivity(intent);
+        //startActivity(intent);
     }
     public void conexionServidor(){
         if (android.os.Build.VERSION.SDK_INT > 9)

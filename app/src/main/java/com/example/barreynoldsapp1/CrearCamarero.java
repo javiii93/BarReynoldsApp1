@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -34,10 +35,17 @@ public class CrearCamarero extends AppCompatActivity {
     Socket socket;
     ObjectOutputStream out;
     Cambrer c;
+    public static MediaPlayer sonido,sonido2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_camarero);
+
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        sonido2 = MediaPlayer.create(this, R.raw.roblox);
+        sonido2.start();
+
         iv = findViewById(R.id.imageViewFoto);
         etPass = findViewById(R.id.editText);
         etUser = findViewById(R.id.editText2);
@@ -56,6 +64,7 @@ public class CrearCamarero extends AppCompatActivity {
         }
     }
     public void CrearCamarero(View view){
+        sonido.start();
         if(etPass.getText().toString().isEmpty()&&etUser.toString().isEmpty()){
             Toast.makeText(this,"ERROR: User y password vacios",Toast.LENGTH_LONG).show();
         }
@@ -68,7 +77,7 @@ public class CrearCamarero extends AppCompatActivity {
         else {
             c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),iv);
             arrayCamareros.add(c);
-            // enviar camarero
+            enviarCamarero();
         }
 
     }

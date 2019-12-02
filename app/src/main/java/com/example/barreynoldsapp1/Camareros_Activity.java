@@ -67,7 +67,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_camareros);
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
-
+        sonido2.start();
 
         try{
             getConfig();
@@ -101,7 +101,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    sonido2.start();
+                    sonido.start();
                    // nombreEmpleado=parent.getItemAtPosition(position).toString();
                     nombreEmpleado=String.valueOf(arrayCamareros.get(position).getId())+arrayCamareros.get(position).getNombre();
                     System.out.println(nombreEmpleado+"------------------------------");
