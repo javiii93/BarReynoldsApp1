@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetSocketAddress;
@@ -38,6 +39,8 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
     public EditText etUser,etPass;
     Socket socket;
     Cambrer c;
+    byte array[];
+    Bitmap bmp;
     public static MediaPlayer sonido,sonido2;
     private static final long serialVersionUID = 1733521708430895847L;
 
@@ -79,18 +82,53 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
             Toast.makeText(this,"ERROR: Password vacio",Toast.LENGTH_LONG).show();
         }
         else {
+            // Enviar Camarero (Texto)
              c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString());
             enviarCamarero(4545);
-/*                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                Bitmap bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+            // Enviar Foto camarero
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte array[] = baos.toByteArray();
-                enviarCamarero(array, 4546);*/
-
-
+                array = baos.toByteArray();
+                enviarFoto(4546);
         }
 
     }
+
+    public void enviarFoto(int port) {
+        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
+        try{
+            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
+            socket = new Socket();
+            socket.connect(sockAdr, timeout);
+            if(socket.isConnected()) {
+                ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
+                salidaDatos.writeObject(serialize(array));
+                salidaDatos.close();
+                socket.close();
+            }
+
+        }catch (SocketTimeoutException e){
+            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Log.d("Socket","Socket Closed");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static byte[] serialize(Object obj) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream os = new ObjectOutputStream(out);
+        os.writeObject(obj);
+        return out.toByteArray();
+    }
+
     public void enviarCamarero(int port) {
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
         try{
