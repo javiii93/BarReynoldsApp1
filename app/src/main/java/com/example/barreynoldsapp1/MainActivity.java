@@ -84,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
 
         mesaNum=getIntent().getStringExtra("mesaNum");
         //enviarNumeroMesaParaRecuperarComanda(Integer.parseInt(mesaNum));
+        if(comandasInacabadas.size()!=0){
+            try{
      if(comandasInacabadas.get(Integer.parseInt(mesaNum)-1)!=null){
-        arrayProductos2= comandasInacabadas.get(Integer.parseInt(mesaNum)-1);}
+        arrayProductos2= comandasInacabadas.get(Integer.parseInt(mesaNum)-1);}}catch (Exception e){
+                System.out.println("Esta mesa no tiene comandas iniciadas");
+            }
+        }
         //listViewCategorias=findViewById(R.id.listViewCategorias);
         //listViewCategorias.setDivider(null);
         //listViewCategorias.setDividerHeight(0);

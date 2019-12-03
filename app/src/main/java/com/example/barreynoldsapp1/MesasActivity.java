@@ -54,11 +54,11 @@ import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 public class MesasActivity extends AppCompatActivity {
     Document doc;
     ListView listViewMesas;
-    ArrayList<Button>arrayMesas=new ArrayList<>();
+    ArrayList<ImageButton>arrayMesas=new ArrayList<>();
     static ArrayList<Integer>arrayMesasInacabadas=new ArrayList<>();
     static ArrayList<ArrayList<Producto>> comandasInacabadas;
     Intent intent;
-    Button b1;
+    ImageButton b1;
     MediaPlayer sonido;
     ObjectInputStream in;
 
@@ -67,6 +67,8 @@ public class MesasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
+        if(arrayProductos2.size()!=0){
+        arrayProductos2.clear();}
 
         sonido = MediaPlayer.create(this, R.raw.bambu);
         listViewMesas=findViewById(R.id.listViewMesas);
