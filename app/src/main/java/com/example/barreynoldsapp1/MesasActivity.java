@@ -152,6 +152,7 @@ public class MesasActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     public void recuperarTodasComandasInacabadas(){
         if (android.os.Build.VERSION.SDK_INT > 9)
         {

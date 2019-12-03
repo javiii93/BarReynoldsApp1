@@ -1,6 +1,7 @@
 package com.example.barreynoldsapp1;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -69,9 +70,9 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         view.setContentDescription(String.valueOf(i));
         for(int j=0;j<arrayMesasInacabadas.size();j++){
             if(arrayMesasInacabadas.get(j)==i){
-                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
-            }else{
-                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
+               b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
+               System.out.println("VEEEEERDEEEEEEEEEEE");
+               // b1.setBackgroundColor(Color.GREEN);
             }
         }
 

@@ -61,9 +61,9 @@ import static com.example.barreynoldsapp1.MesasActivity.comandasInacabadas;
 
 public class MainActivity extends AppCompatActivity {
     Button b;
-    Socket socket=new Socket();
+    Socket socket = new Socket();
     private File file;
-    private String rutaComandaXml="comanda.xml";
+    private String rutaComandaXml = "comanda.xml";
     String nuevaComanda;
     ObjectInputStream in;
     ObjectOutputStream out;
@@ -80,14 +80,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_grid);
         sonido = MediaPlayer.create(this, R.raw.roblox);
 
-        gridFiends=findViewById(R.id.gridFriends);
+        gridFiends = findViewById(R.id.gridFriends);
 
-        mesaNum=getIntent().getStringExtra("mesaNum");
+        mesaNum = getIntent().getStringExtra("mesaNum");
         //enviarNumeroMesaParaRecuperarComanda(Integer.parseInt(mesaNum));
-        if(comandasInacabadas.size()!=0){
-            try{
-     if(comandasInacabadas.get(Integer.parseInt(mesaNum)-1)!=null){
-        arrayProductos2= comandasInacabadas.get(Integer.parseInt(mesaNum)-1);}}catch (Exception e){
+        if (comandasInacabadas.size() != 0) {
+            try {
+                if (comandasInacabadas.get(Integer.parseInt(mesaNum) - 1) != null) {
+                    arrayProductos2 = comandasInacabadas.get(Integer.parseInt(mesaNum) - 1);
+                }
+            } catch (Exception e) {
                 System.out.println("Esta mesa no tiene comandas iniciadas");
             }
         }
@@ -95,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
         //listViewCategorias.setDivider(null);
         //listViewCategorias.setDividerHeight(0);
         //nombreEmpleado=getIntent().getExtras().toString();
-        System.out.println("-------"+nombreEmpleado);
+        System.out.println("-------" + nombreEmpleado);
         //CrearConexion.conexion();
-        for(int i=0;i<arrayCategorias.size();i++) {
+        for (int i = 0; i < arrayCategorias.size(); i++) {
             Log.d("....", arrayCategorias.get(i).getNombre());
         }
 
-        MyCustomAdapterMain adaptador= new MyCustomAdapterMain(arrayCategorias,this);
+        MyCustomAdapterMain adaptador = new MyCustomAdapterMain(arrayCategorias, this);
         //listViewCategorias.setAdapter(adaptador);
         gridFiends.setAdapter(adaptador);
              /* if(arrayMesasInacabadas.contains(Integer.parseInt(mesaNum))){
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         sonido.start();
         b = new Button(view.getContext());
-        categoria=view.getContentDescription().toString();
+        categoria = view.getContentDescription().toString();
         buttonEffect(b);
         Intent i = new Intent(this, CategoriasActivity.class);
         startActivity(i);
@@ -121,18 +123,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void enviarNumeroMesaParaRecuperarComanda(int mesa) {
         // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
-        try{
+        try {
             port = 4448;
             InetSocketAddress sockAdr = new InetSocketAddress(host, port);
             socket = new Socket();
             socket.connect(sockAdr, timeout);
-            if(socket.isConnected()) {
+            if (socket.isConnected()) {
                 ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
                 salidaDatos.writeInt(mesa);
                 in = new ObjectInputStream(socket.getInputStream());
                 Object ob = in.readObject();
                 arrayProductos2.clear();
-                arrayProductos2= (ArrayList<Producto>)ob;
+                arrayProductos2 = (ArrayList<Producto>) ob;
                 System.out.println(arrayProductos2.toString());
                 in.close();
                 salidaDatos.close();
@@ -141,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-        }catch (SocketTimeoutException e){
-            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
+        } catch (SocketTimeoutException e) {
+            Toast.makeText(this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
             try {
                 socket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-                Log.d("Socket","Socket Closed");
+                Log.d("Socket", "Socket Closed");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -159,13 +161,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void guardarComandaInacabada() {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            nuevaComanda=rutaComandaXml.substring(0,rutaComandaXml.length()-4)+mesaNum+".xml";
-            file=new File(getFilesDir(),nuevaComanda);
+            nuevaComanda = rutaComandaXml.substring(0, rutaComandaXml.length() - 4) + mesaNum + ".xml";
+            file = new File(getFilesDir(), nuevaComanda);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -227,22 +228,20 @@ public class MainActivity extends AppCompatActivity {
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
 
-            if (android.os.Build.VERSION.SDK_INT > 9)
-            {
+            if (android.os.Build.VERSION.SDK_INT > 9) {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
 
-        }
-
-        catch (ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public static void buttonEffect(View view){
+
+    public static void buttonEffect(View view) {
         view.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -262,25 +261,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void onBackPressed(){
+
+    public void onBackPressed() {
         sonido = MediaPlayer.create(this, R.raw.bambu);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Quieres finalizar la comanda de la mesa "+mesaNum);
-            alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    arrayProductos2=new ArrayList<>();
-                    guardarComandaInacabada();
-                    startActivity(new Intent(getApplicationContext(),MesasActivity.class));
-                }
-            });
-            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            alert.show();
+        alert.setMessage("Quieres finalizar la comanda de la mesa " + mesaNum);
+        alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //arrayProductos2 = new ArrayList<>();
+                //guardarComandaInacabada();
+                startActivity(new Intent(getApplicationContext(), MesasActivity.class));
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getApplicationContext(), MesasActivity.class));
+            }
+        });
+        alert.show();
 
 
     }
