@@ -41,7 +41,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 public class Camareros_Activity extends AppCompatActivity implements Serializable {
-    private ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
+    public static  ArrayList<Cambrer> arrayCamareros = new ArrayList<>();
     private ListView lista;
     private Intent i;
     public static int timeout=5000;
@@ -67,7 +67,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_camareros);
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
-
+        sonido2.start();
 
         try{
             getConfig();
@@ -101,7 +101,8 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    sonido2.start();
+                    sonido.start();
+                   // loginCamarero();
                    // nombreEmpleado=parent.getItemAtPosition(position).toString();
                     nombreEmpleado=String.valueOf(arrayCamareros.get(position).getId())+arrayCamareros.get(position).getNombre();
                     System.out.println(nombreEmpleado+"------------------------------");

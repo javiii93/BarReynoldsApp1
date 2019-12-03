@@ -1,21 +1,46 @@
 package com.example.barreynoldsapp1;
 
+import android.media.Image;
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 public class Cambrer implements Serializable {
     private int id;
     private String nom_Cambrer;
     public String password;
+    public byte[] foto;
     private static final long serialVersionUID = 1733521708430895847L;
 
-    public Cambrer(int id,String nom_cambrer, String password) {
+    public Cambrer(int id, String nom_Cambrer, String password) {
         super();
-        this.id=id;
-        this.nom_Cambrer = nom_cambrer;
-        this.password= password;
+        this.id = id;
+        this.nom_Cambrer = nom_Cambrer;
+        this.password = password;
     }
 
+    public Cambrer(int id, String nom_Cambrer, String password, byte[] foto) {
+        this.id = id;
+        this.nom_Cambrer = nom_Cambrer;
+        this.password = password;
+        this.foto = foto;
+    }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getNom_Cambrer() {
+        return nom_Cambrer;
+    }
+
+    public void setNom_Cambrer(String nom_Cambrer) {
+        this.nom_Cambrer = nom_Cambrer;
+    }
 
     public int getId() {
         return id;

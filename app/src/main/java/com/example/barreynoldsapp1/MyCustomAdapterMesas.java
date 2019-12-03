@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +71,13 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         view.setContentDescription(String.valueOf(i));
         for(int j=0;j<arrayMesasInacabadas.size();j++){
             if(arrayMesasInacabadas.get(j)==i){
-               b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
-               System.out.println("VEEEEERDEEEEEEEEEEE");
-               // b1.setBackgroundColor(Color.GREEN);
+
+                Log.d("Color Mesa","Verde"+i);
+                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
+            }else{
+                //b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
+                Log.d("Color Mesa","Gris"+i);
+
             }
         }
 

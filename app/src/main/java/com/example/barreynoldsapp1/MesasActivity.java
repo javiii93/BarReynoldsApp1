@@ -48,6 +48,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
 import static com.example.barreynoldsapp1.Camareros_Activity.sockAdr;
 import static com.example.barreynoldsapp1.Camareros_Activity.socket;
+import static com.example.barreynoldsapp1.Camareros_Activity.sonido2;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
@@ -70,6 +71,7 @@ public class MesasActivity extends AppCompatActivity {
         if(arrayProductos2.size()!=0){
         arrayProductos2.clear();}
 
+        sonido2.start();
         sonido = MediaPlayer.create(this, R.raw.bambu);
         listViewMesas=findViewById(R.id.listViewMesas);
         b1=findViewById(R.id.buttonMesa);
@@ -105,8 +107,8 @@ public class MesasActivity extends AppCompatActivity {
     public void onBackPressed() {
         sonido.start();
         super.onBackPressed();
-        intent = new Intent(getApplicationContext(),Camareros_Activity.class);
         arrayCategorias=new ArrayList<Categoria>();
+        intent = new Intent(this,Camareros_Activity.class);
         startActivity(intent);
     }
     public void conexionServidor(){
