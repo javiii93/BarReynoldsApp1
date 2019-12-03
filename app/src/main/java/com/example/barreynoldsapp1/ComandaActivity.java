@@ -79,6 +79,7 @@ public class ComandaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comanda);
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
+        sonido2.start();
 
         Log.d("xivato",nombreEmpleado);
 
@@ -244,6 +245,7 @@ public class ComandaActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
+            adaptador.notifyDataSetChanged();
         }
         catch (ParserConfigurationException e) {
             e.printStackTrace();

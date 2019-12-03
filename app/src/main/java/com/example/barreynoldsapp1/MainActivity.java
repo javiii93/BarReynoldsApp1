@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,6 +54,7 @@ import static com.example.barreynoldsapp1.Camareros_Activity.nombreEmpleado;
 import static com.example.barreynoldsapp1.Camareros_Activity.host;
 import static com.example.barreynoldsapp1.Camareros_Activity.numMesas;
 import static com.example.barreynoldsapp1.Camareros_Activity.port;
+import static com.example.barreynoldsapp1.Camareros_Activity.sonido2;
 import static com.example.barreynoldsapp1.Camareros_Activity.timeout;
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 import static com.example.barreynoldsapp1.MesasActivity.arrayMesasInacabadas;
@@ -78,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
-        sonido = MediaPlayer.create(this, R.raw.roblox);
 
+        sonido = MediaPlayer.create(this, R.raw.bambu);
+        sonido2.start();
         gridFiends=findViewById(R.id.gridFriends);
 
         mesaNum=getIntent().getStringExtra("mesaNum");
@@ -269,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
             alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    arrayProductos2=new ArrayList<>();
                     guardarComandaInacabada();
+                    arrayProductos2=new ArrayList<>();
                     startActivity(new Intent(getApplicationContext(),MesasActivity.class));
                 }
             });
