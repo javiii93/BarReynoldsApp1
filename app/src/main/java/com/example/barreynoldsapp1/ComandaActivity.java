@@ -245,7 +245,6 @@ public class ComandaActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
-            arrayProductos2.clear();
             adaptador.notifyDataSetChanged();
         }
         catch (ParserConfigurationException e) {

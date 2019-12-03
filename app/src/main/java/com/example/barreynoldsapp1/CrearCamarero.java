@@ -83,50 +83,15 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
         }
         else {
             // Enviar Camarero (Texto)
-             c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString());
-            enviarCamarero(4545);
             // Enviar Foto camarero
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 array = baos.toByteArray();
-                enviarFoto(4546);
+            c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),array);
+            enviarCamarero(4545);
         }
 
-    }
-
-    public void enviarFoto(int port) {
-        // CONEXION SOCKET IP CON TIMEOUT POR SI NO PUEDE CONECTAR CON EL HOST
-        try{
-            InetSocketAddress sockAdr = new InetSocketAddress(host, port);
-            socket = new Socket();
-            socket.connect(sockAdr, timeout);
-            if(socket.isConnected()) {
-                ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
-                salidaDatos.writeObject(serialize(array));
-                salidaDatos.close();
-                socket.close();
-            }
-
-        }catch (SocketTimeoutException e){
-            Toast.makeText(this,"No se pudo conectar con el servidor",Toast.LENGTH_LONG).show();
-            try {
-                socket.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                Log.d("Socket","Socket Closed");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public static byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(obj);
-        return out.toByteArray();
     }
 
     public void enviarCamarero(int port) {

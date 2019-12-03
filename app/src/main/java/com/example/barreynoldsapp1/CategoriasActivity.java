@@ -135,42 +135,6 @@ public class CategoriasActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_out_2, R.anim.slide_in_2);
         }
     }
-
-    /*public void recuperarProductosXML() {
-        try {
-            System.out.println(categoria);
-            InputStream istream = getAssets().open("productes.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(istream);
-            // NodeList de la categoria
-            NodeList nl = doc.getElementsByTagName(categoria);
-            // Element del primer elemento del NodeList
-            Element e = (Element) nl.item(0);
-            // NodeList de los hijos del elemento
-            NodeList nl2 = e.getChildNodes();
-
-            for (int i = 0; i < nl2.getLength(); i++) {
-                if (nl2.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                    Element el = (Element) nl2.item(i);
-                    p1 = new Producto();
-                    p1.setId(Integer.parseInt( el.getAttribute("id")));
-                    p1.setNombre(el.getElementsByTagName("nom").item(0).getTextContent());
-                    p1.setPrecio(Float.parseFloat(el.getElementsByTagName("preu").item(0).getTextContent()));
-                    p1.setDescripcion(el.getElementsByTagName("descripcio").item(0).getTextContent());
-                    p1.setCategoria(categoria);
-                    //p1.setCantidad(0);
-                    String ruta = acortarRuta(el.getElementsByTagName("image").item(0).getAttributes().item(0).getNodeValue());
-                    int drawableResourceId = getResources().getIdentifier(ruta, "drawable", getPackageName());
-                    p1.setImagen(drawableResourceId);
-                    arrayProductos.add(p1);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }*/
     public void recuperarProductosServer(){
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -231,18 +195,6 @@ public class CategoriasActivity extends AppCompatActivity {
         sonido2.start();
         startActivity(i);
 
-    }
-
-    public String acortarRuta(String s) {
-        String result;
-        for (int i = s.length() - 1; i > 0; i--) {
-
-            if (s.charAt(i) == '/') {
-                result = s.substring(i + 1, s.length() - 4);
-                return result;
-            }
-        }
-        return null;
     }
 
 }
