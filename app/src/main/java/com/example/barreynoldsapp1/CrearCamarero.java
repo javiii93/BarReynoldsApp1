@@ -82,14 +82,17 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
             Toast.makeText(this,"ERROR: Password vacio",Toast.LENGTH_LONG).show();
         }
         else {
-            // Enviar Camarero (Texto)
-            // Enviar Foto camarero
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                array = baos.toByteArray();
-            c = new Cambrer(0,etUser.getText().toString(),etPass.getText().toString(),array);
-            enviarCamarero(4545);
+                try {
+                    bmp = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    array = baos.toByteArray();
+                    c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString(), array);
+                    enviarCamarero(4545);
+                }catch(Exception e){
+                    c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString());
+                    enviarCamarero(4545);
+                }
         }
 
     }
