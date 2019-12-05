@@ -126,9 +126,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
         startActivity(i);
 
     }
-    public void loginCamarero(){
 
-    }
     public void conexionServidor(){
         if (android.os.Build.VERSION.SDK_INT > 9)
         {

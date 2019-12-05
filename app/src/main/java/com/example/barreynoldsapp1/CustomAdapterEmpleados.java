@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,25 +56,16 @@ public class CustomAdapterEmpleados extends BaseAdapter implements ListAdapter {
         ImageView imageView = view.findViewById(R.id.imageView4) ;
         //Handle TextView and display string from your list
         TextView listItemText = view.findViewById(R.id.list_item_string1);
-        listItemText.setText(list.get(position).toString());
-       /* if(list.get(position).toString().toLowerCase().contains("sergio")){
-            imageView.setImageResource(R.drawable.sbereno);
-        }
-        else if(list.get(position).toString().toLowerCase().contains("javi")){
-            imageView.setImageResource(R.drawable.jlinde);
-        }
-        else if(list.get(position).toString().toLowerCase().contains("adri")){
-            imageView.setImageResource(R.drawable.agonzalez);
-        }*/
-            // Foto null
+        listItemText.setText(list.get(position).getNom_Cambrer());
+
             try {
                 System.out.println(arrayCamareros.get(position).getFoto());
                 ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(list.get(position).foto);
                 Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
                 imageView.setImageBitmap(bitmap);
+
             }
             catch(Exception e){
-
             }
 
 

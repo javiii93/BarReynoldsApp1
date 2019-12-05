@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/listview5"
-        android:layout_width="631dp"
-        android:layout_height="307dp"
+        android:layout_width="673dp"
+        android:layout_height="272dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
@@ -25,13 +25,14 @@
         android:id="@+id/imageButton2"
         android:layout_width="78dp"
         android:layout_height="66dp"
-        android:layout_marginStart="588dp"
-        android:layout_marginLeft="588dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginStart="600dp"
+        android:layout_marginLeft="600dp"
         android:background="#00FFFFFF"
         android:onClick="añadirCamarero"
         android:scaleType="fitStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listview5"
+        app:layout_constraintVertical_bias="0.428"
         app:srcCompat="@drawable/add_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

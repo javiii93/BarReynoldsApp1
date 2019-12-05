@@ -91,12 +91,14 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
                     enviarCamarero(4545);
                     Log.d("FotoCamarero","OK");
                 }catch(Exception e){
-                    c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString());
+                    c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString(),null);
                     enviarCamarero(4545);
                     Log.d("FotoCamarero","Default");
 
                 }
         }
+        Intent i = new Intent(this,Camareros_Activity.class);
+        startActivity(i);
 
     }
 

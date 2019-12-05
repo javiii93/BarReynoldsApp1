@@ -8,12 +8,14 @@
 
     <TextView
         android:id="@+id/list_item_string1"
-        android:layout_width="320dp"
-        android:layout_height="83dp"
+        android:layout_width="312dp"
+        android:layout_height="82dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="76dp"
-        android:paddingLeft="8dp"
-        android:textSize="24sp"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:paddingLeft="0dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
