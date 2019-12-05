@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -20,6 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -116,6 +119,7 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             e.printStackTrace();
         }
     }
+
     public void añadirCamarero(View view){
         MainActivity.buttonEffect(view);
         Intent i = new Intent(this,CrearCamarero.class);

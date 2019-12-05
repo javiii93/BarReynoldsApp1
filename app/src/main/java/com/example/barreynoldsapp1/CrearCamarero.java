@@ -89,9 +89,12 @@ public class CrearCamarero extends AppCompatActivity implements Serializable {
                     array = baos.toByteArray();
                     c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString(), array);
                     enviarCamarero(4545);
+                    Log.d("FotoCamarero","OK");
                 }catch(Exception e){
                     c = new Cambrer(0, etUser.getText().toString(), etPass.getText().toString());
                     enviarCamarero(4545);
+                    Log.d("FotoCamarero","Default");
+
                 }
         }
 
