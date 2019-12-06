@@ -1,6 +1,8 @@
 package com.example.barreynoldsapp1;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import java.io.ByteArrayInputStream;
 
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
 
@@ -59,7 +63,10 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         textView.setText(String.valueOf(arrayProductos2.get(position).getCantidad()));
 
         ImageView imageView= (ImageView) view.findViewById(R.id.imageView3);
-        imageView.setImageResource(arrayProductos2.get(position).getImagen());
+        //imageView.setImageResource(arrayProductos2.get(position).getImagen());
+        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(arrayProductos2.get(position).getFoto());
+        Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
+        imageView.setImageBitmap(bitmap);
         //imageView.setImageResource(list.get(position).getImagen();
         //Handle buttons and add onClickListeners
         // Boton borrar

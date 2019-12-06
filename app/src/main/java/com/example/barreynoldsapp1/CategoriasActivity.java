@@ -89,7 +89,8 @@ public class CategoriasActivity extends AppCompatActivity {
             if(p.getCategoriaNombre().contains(categoria)){
                 nombreFoto=p.getNombre().toLowerCase().replaceAll(" ","_").replaceAll("-","_").replaceAll("ç","c");
                 identifier=getResources().getIdentifier(nombreFoto,"drawable",getPackageName());
-                p.setImagen(identifier);
+                //p.setImagen(identifier);
+                p.setFoto(p.getFoto());
                 arrayProductos3.add(p);
             }
         }

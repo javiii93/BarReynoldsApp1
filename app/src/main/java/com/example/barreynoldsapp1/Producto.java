@@ -1,9 +1,5 @@
 package com.example.barreynoldsapp1;
 
-import android.media.Image;
-import android.net.Uri;
-import android.widget.ImageView;
-
 import java.io.Serializable;
 
 public class Producto implements Comparable<Producto>, Serializable {
@@ -13,7 +9,7 @@ public class Producto implements Comparable<Producto>, Serializable {
     private String descripcion, categoria;
     private String categoriaNombre;
     private int cantidad;
-    private int imagen;
+    private byte[] foto;
 
     private static final long serialVersionUID = 1733521708430895847L;
 
@@ -57,12 +53,12 @@ public class Producto implements Comparable<Producto>, Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getImagen() {
-        return imagen;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     public float getPrecio() {
@@ -85,13 +81,13 @@ public class Producto implements Comparable<Producto>, Serializable {
     public Producto() {
     }
 
-    public Producto(String nombre, float precio, String descripcion, String categoria, int cantidad, int imagen) {
+    public Producto(String nombre, float precio, String descripcion, String categoria, int cantidad, byte[] foto) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.cantidad = cantidad;
-        this.imagen = imagen;
+        this.foto = foto;
     }
 
     public Producto(int id, String nombre, float precio, String descripcion, String categoria) {
@@ -102,7 +98,7 @@ public class Producto implements Comparable<Producto>, Serializable {
         this.categoria = categoria;
     }
 
-    public Producto(int id, String nombre, float precio, String descripcion, String categoria, String categoriaNombre, int cantidad, int imagen) {
+    public Producto(int id, String nombre, float precio, String descripcion, String categoria, String categoriaNombre, int cantidad, byte[] foto) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -110,7 +106,7 @@ public class Producto implements Comparable<Producto>, Serializable {
         this.categoria = categoria;
         this.categoriaNombre = categoriaNombre;
         this.cantidad = cantidad;
-        this.imagen = imagen;
+        this.foto = foto;
     }
 
     public String toString() {

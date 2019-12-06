@@ -206,7 +206,7 @@ public class ComandaActivity extends AppCompatActivity {
                 eProducto.appendChild(eDescripcion);
 
                 Element eImagen = doc.createElement("imagen");
-                eImagen.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getImagen())));
+                eImagen.appendChild(doc.createTextNode(String.valueOf(arrayProductos2.get(i).getFoto())));
                 eProducto.appendChild(eImagen);
 
                 Element eCantidad = doc.createElement("cantidad");
