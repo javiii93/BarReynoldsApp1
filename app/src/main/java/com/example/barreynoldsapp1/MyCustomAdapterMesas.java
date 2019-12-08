@@ -75,7 +75,7 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
                 Log.d("Color Mesa","Verde"+i);
                 b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
             }else{
-                //b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
+                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
                 Log.d("Color Mesa","Gris"+i);
 
             }

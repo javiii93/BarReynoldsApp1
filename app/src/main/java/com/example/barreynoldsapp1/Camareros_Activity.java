@@ -165,8 +165,8 @@ public class Camareros_Activity extends AppCompatActivity implements Serializabl
             try {
 
                 socket.close();
-                InetSocketAddress sockAdr = new InetSocketAddress(host, port);
-                socket = new Socket();
+                startActivity(new Intent(this,PrincipalActivity.class));
+
 
             } catch (IOException ex) {
                 ex.printStackTrace();
