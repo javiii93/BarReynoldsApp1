@@ -70,15 +70,16 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         // AÑADIMOS AL VIEW (BOTON) EL NUMERO DE MESA
         view.setContentDescription(String.valueOf(i));
         for(int j=0;j<arrayMesasInacabadas.size();j++){
+            b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
             if(arrayMesasInacabadas.get(j)==i){
                 Log.d("Color Mesa","Verde"+i);
                 b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
-            }else{
-                b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barragris));
-                Log.d("Color Mesa","Gris"+i);
+                MyCustomAdapterMesas.this.notifyDataSetChanged();
 
             }
+
         }
+
 
         i++;
         return view;

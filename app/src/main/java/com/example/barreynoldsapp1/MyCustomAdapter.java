@@ -19,6 +19,8 @@ import android.widget.TextView;
 import java.io.ByteArrayInputStream;
 
 import static com.example.barreynoldsapp1.CategoriasActivity.arrayProductos2;
+import static com.example.barreynoldsapp1.ComandaActivity.precioTotal;
+import static com.example.barreynoldsapp1.ComandaActivity.textViewTotal;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
     View view;
@@ -71,6 +73,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         //Handle buttons and add onClickListeners
         // Boton borrar
         Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
+
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +93,11 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 añadirProductos(pos);
             }
         });
+        precioTotal=0;
+        for(int i=0;i<arrayProductos2.size();i++){
+            precioTotal+=arrayProductos2.get(i).getPrecio()*arrayProductos2.get(i).getCantidad();
+            textViewTotal.setText("Total: "+String.valueOf(precioTotal));
+        }
 
         return view;
     }

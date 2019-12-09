@@ -63,7 +63,7 @@ import static com.example.barreynoldsapp1.MyCustomAdapter.imprimirProductos;
 
 public class ComandaActivity extends AppCompatActivity {
     public ListView lista1;
-    TextView tvv;
+    static TextView tvv,textViewTotal;
     Button deleteBtn,addBtn;
     Document doc;
     private File file;
@@ -73,12 +73,15 @@ public class ComandaActivity extends AppCompatActivity {
     int selectedRow;
     final MyCustomAdapter adaptador = new MyCustomAdapter(this);
     MediaPlayer sonido,sonido2;
+    static float precioTotal;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+        precioTotal=0;
+
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2 = MediaPlayer.create(this, R.raw.roblox);
         sonido2.start();
@@ -87,10 +90,11 @@ public class ComandaActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         Collections.sort(arrayProductos2);
+
         deleteBtn=(Button)findViewById(R.id.delete_btn);
         addBtn=(Button)findViewById(R.id.botonCategoria);
         lista1 = findViewById(R.id.listView1);
-
+        textViewTotal=findViewById(R.id.textViewTotal);
 
         lista1.setAdapter(adaptador);
 
@@ -107,6 +111,12 @@ public class ComandaActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 
@@ -175,6 +185,7 @@ public class ComandaActivity extends AppCompatActivity {
 
     public void guardarComandaFinalizado(View view) {
         buttonEffect(view);
+        sonido.start();
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
@@ -247,6 +258,7 @@ public class ComandaActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
             }
+
             adaptador.notifyDataSetChanged();
         }
         catch (ParserConfigurationException e) {

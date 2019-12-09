@@ -69,7 +69,8 @@ public class MesasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesas);
         if(arrayProductos2.size()!=0){
-        arrayProductos2.clear();}
+            arrayProductos2.clear();
+        }
 
         sonido2.start();
         sonido = MediaPlayer.create(this, R.raw.bambu);
@@ -89,6 +90,17 @@ public class MesasActivity extends AppCompatActivity {
             }
         });
         comandasInacabadas=new ArrayList<ArrayList<Producto>>();
+
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        arrayMesasInacabadas.clear();
+        Log.d("pp","------------------");
         conexionServidor();
         recuperarTodasComandasInacabadas();
         for(int i=0;i<numMesas;i++){
@@ -98,9 +110,6 @@ public class MesasActivity extends AppCompatActivity {
 
         MyCustomAdapterMesas adaptador= new MyCustomAdapterMesas(arrayMesas,this);
         listViewMesas.setAdapter(adaptador);
-
-
-
     }
 
     @Override

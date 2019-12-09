@@ -41,4 +41,19 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/textViewTotal"
+        android:layout_width="152dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="24dp"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="Total: "
+        android:textSize="36sp"
+        app:fontFamily="@font/anton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
