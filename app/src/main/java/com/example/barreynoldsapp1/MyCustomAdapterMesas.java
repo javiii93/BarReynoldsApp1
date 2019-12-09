@@ -71,7 +71,6 @@ public class MyCustomAdapterMesas extends BaseAdapter implements ListAdapter {
         view.setContentDescription(String.valueOf(i));
         for(int j=0;j<arrayMesasInacabadas.size();j++){
             if(arrayMesasInacabadas.get(j)==i){
-
                 Log.d("Color Mesa","Verde"+i);
                 b1.setBackground(ContextCompat.getDrawable(context, R.drawable.barraverde));
             }else{

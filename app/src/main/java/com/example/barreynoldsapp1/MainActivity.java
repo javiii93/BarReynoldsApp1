@@ -3,6 +3,7 @@ package com.example.barreynoldsapp1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -76,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     GridView gridFiends;
     MediaPlayer sonido;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_grid);
-
 
         sonido = MediaPlayer.create(this, R.raw.bambu);
         sonido2.start();
@@ -244,7 +245,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
     public static void buttonEffect(View view) {
         view.setOnTouchListener(new View.OnTouchListener() {
 
