@@ -97,6 +97,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         for(int i=0;i<arrayProductos2.size();i++){
             precioTotal+=arrayProductos2.get(i).getPrecio()*arrayProductos2.get(i).getCantidad();
             textViewTotal.setText("Total: "+String.valueOf(precioTotal));
+            notifyDataSetChanged();
         }
 
         return view;
