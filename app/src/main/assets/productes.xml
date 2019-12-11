@@ -14,7 +14,10 @@
             <preu>1.99</preu>
             <descripcio>Coca_Cola sense sucres afegits</descripcio>
             <imatge>
-                <image href="Imatges/coca_cola_zero.jpg"/>
+                <im
+
+
+                	age href="Imatges/coca_cola_zero.jpg"/>
             </imatge>
         </producte>
         <producte id='3'>
